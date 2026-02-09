@@ -3,8 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="Munzer — Cybercrime IT Security Student | Projects, labs, and links." />
+  <meta name="description" content="Munzer — Cybercrime IT Security Student | Projects, skills, and certifications." />
   <title>Munzer | Cybercrime IT Security</title>
+
+  <!-- Optional favicon (upload assets/favicon.png) -->
+  <link rel="icon" href="assets/favicon.png" type="image/png">
 
   <style>
     :root{
@@ -15,6 +18,7 @@
       --line: rgba(231,238,252,.12);
       --accent: #7c5cff;
       --accent2:#22c55e;
+      --danger:#ef4444;
       --shadow: 0 20px 60px rgba(0,0,0,.35);
       --radius: 20px;
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
@@ -39,18 +43,15 @@
     a{color:inherit;text-decoration:none}
     .wrap{max-width:var(--max);margin:0 auto;padding:28px 18px 60px;}
 
+    /* Header */
     .top{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:10px 0 26px;}
     .brand{display:flex;align-items:center;gap:12px;}
-    .logo{
-      width:42px;height:42px;border-radius:14px;
-      background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(34,197,94,.75));
-      box-shadow: 0 14px 30px rgba(124,92,255,.18);
-      position:relative;overflow:hidden;
-    }
-    .logo::after{
-      content:"";position:absolute;inset:-60%;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), transparent 55%);
-      transform: rotate(15deg);
+    .avatar{
+      width:42px;height:42px;border-radius:999px;
+      object-fit:cover;
+      border:1px solid rgba(231,238,252,.18);
+      box-shadow: 0 14px 30px rgba(0,0,0,.30);
+      background: rgba(255,255,255,.06);
     }
     .brand h1{font-size:15px;margin:0;letter-spacing:.5px;font-weight:700;text-transform:uppercase;opacity:.95;}
     .brand p{margin:2px 0 0;font-size:13px;color:var(--muted);}
@@ -74,6 +75,7 @@
       overflow:hidden;
     }
 
+    /* Hero */
     .hero{display:grid;grid-template-columns:1.25fr .75fr;gap:18px;align-items:stretch;margin-bottom:18px;}
     .heroMain{padding:26px 22px;position:relative;}
     .heroMain::before{
@@ -108,6 +110,7 @@
       color: rgba(231,238,252,.92);
       font-weight:650;font-size:13.5px;
       transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      cursor:pointer;
     }
     .btn:hover{transform:translateY(-1px);background:rgba(255,255,255,.08);border-color:rgba(231,238,252,.20)}
     .btn.primary{border-color:rgba(124,92,255,.35);background:linear-gradient(135deg, rgba(124,92,255,.55), rgba(124,92,255,.20));}
@@ -133,6 +136,7 @@
     .item h4{margin:0;font-size:13.5px}
     .item p{margin:2px 0 0;color:var(--muted);font-size:12.75px;line-height:1.35}
 
+    /* Layout grid sections */
     .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;margin-top:18px;}
     .section{padding:18px;}
     .section h2{margin:0 0 10px;font-size:14px;letter-spacing:.3px;text-transform:uppercase;color:rgba(231,238,252,.86);}
@@ -140,7 +144,79 @@
     .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
     .chip{font-family:var(--mono);font-size:12px;color:rgba(231,238,252,.82);padding:7px 10px;border-radius:999px;border:1px solid rgba(231,238,252,.12);background:rgba(255,255,255,.03);}
 
-    /* ✅ Projects list with scrollbar */
+    /* Skills grid */
+    .skillsGrid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap:14px;
+      margin-top:10px;
+    }
+    .skillsBox{
+      padding:14px;
+      border-radius:16px;
+      border:1px solid rgba(231,238,252,.10);
+      background: rgba(255,255,255,.03);
+    }
+    .skillsBox h3{
+      margin:0 0 10px;
+      font-size:13.5px;
+      color: rgba(231,238,252,.90);
+      letter-spacing:.2px;
+    }
+
+    /* Certifications */
+    .certGrid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap:14px;
+      margin-top:10px;
+    }
+    .certCard{
+      padding:14px;
+      border-radius:16px;
+      border:1px solid rgba(231,238,252,.10);
+      background: rgba(255,255,255,.03);
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .certTop{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .status{
+      font-family:var(--mono);
+      font-size:11.5px;
+      padding:5px 9px;
+      border-radius:999px;
+      border:1px solid rgba(231,238,252,.12);
+      background: rgba(255,255,255,.03);
+      color: rgba(231,238,252,.75);
+      white-space:nowrap;
+    }
+    .status.ready{
+      border-color: rgba(34,197,94,.25);
+      color: rgba(34,197,94,.95);
+      background: rgba(34,197,94,.08);
+    }
+    .status.progress{
+      border-color: rgba(239,68,68,.25);
+      color: rgba(239,68,68,.95);
+      background: rgba(239,68,68,.08);
+    }
+    .certCard b{font-size:13.8px}
+    .certActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
+    .miniBtn{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:9px 10px;border-radius:12px;
+      border:1px solid rgba(231,238,252,.12);
+      background: rgba(255,255,255,.04);
+      font-size:12.75px;font-weight:650;
+    }
+
+    /* Projects list with scrollbar */
     .projWrap{
       max-height: 350px;
       overflow-y: auto;
@@ -148,7 +224,7 @@
       scroll-behavior: smooth;
     }
     .projWrap::-webkit-scrollbar{width:10px;}
-    .projWrap::-webkit-scrollbar-thumb{background:rgba(231,238,252,.16);border-radius:999px;border:2px solid rgba(0,0,0,.0);}
+    .projWrap::-webkit-scrollbar-thumb{background:rgba(231,238,252,.16);border-radius:999px;}
     .projWrap::-webkit-scrollbar-track{background:rgba(255,255,255,.02);border-radius:999px;}
 
     .proj{display:flex;flex-direction:column;gap:10px;margin:0;padding:0;list-style:none;}
@@ -178,11 +254,16 @@
     footer a{color:rgba(231,238,252,.86);text-decoration:underline;text-underline-offset:2px}
     .footerRight{display:flex;gap:12px;flex-wrap:wrap;color:rgba(231,238,252,.62)}
 
+    /* smooth scroll */
+    html{scroll-behavior:smooth}
+
     @media (max-width: 900px){
       .hero{grid-template-columns:1fr}
       .grid{grid-template-columns:1fr}
       .pillrow{justify-content:flex-start}
       .projWrap{max-height: 420px;}
+      .skillsGrid{grid-template-columns:1fr}
+      .certGrid{grid-template-columns:1fr}
     }
   </style>
 </head>
@@ -191,10 +272,11 @@
   <div class="wrap">
     <header class="top">
       <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
+        <!-- Upload your photo: assets/me.jpg -->
+        <img class="avatar" src="assets/me.jpg" alt="Munzer photo" />
         <div>
           <h1>cy-mun.com</h1>
-          <p>Munzer • Cybercrime IT Security Student</p>
+          <p>Munzer • CybersCybercrime IT Security Student</p>
         </div>
       </div>
 
@@ -210,32 +292,35 @@
         <h2 class="title">Hi, I’m <b>Munzer</b>.</h2>
         <p class="subtitle">
           Cybercrime IT Security student focused on practical security skills: incident response, network security,
-          and hands-on labs. I document what I learn and build projects to stay sharp.
+          security monitoring, and hands-on labs.
         </p>
 
         <div class="ctaRow">
-          <a class="btn primary" href="https://github.com/munzer-elsarafandi" target="_blank" rel="noreferrer">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M9 19c-4 1.5-4-2.5-5-3m10 6v-3.87c0-1.1.38-1.84 1-2.5-3.33-.37-6.83-1.67-6.83-7.5 0-1.66.6-3 1.6-4.06-.16-.37-.7-1.9.15-3.94 0 0 1.3-.41 4.25 1.55A14.6 14.6 0 0 1 12 6.8c1.3.01 2.6.18 3.82.5C18.77 5.34 20.07 5.75 20.07 5.75c.85 2.04.31 3.57.15 3.94.99 1.06 1.6 2.4 1.6 4.06 0 5.85-3.5 7.12-6.85 7.48.53.46 1.03 1.36 1.03 2.75V22" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            GitHub
+          <a class="btn primary" href="projects.html">
+            Projects
           </a>
 
-          <!-- ✅ Replace href with your real LinkedIn URL -->
+          <!-- Upload CV to: assets/Munzer-CV.pdf -->
+          <a class="btn" href="assets/Munzer-CV.pdf" target="_blank" rel="noreferrer">
+            Download CV
+          </a>
+
+          <!-- ✅ Button that scrolls to Certifications section (WORKS) -->
+          <a class="btn" href="#certs">
+            Certifications
+          </a>
+
+          <a class="btn" href="mailto:muntherhani@gmail.com">
+            Email
+          </a>
+
+          <!-- Replace with your real LinkedIn URL -->
           <a class="btn" href="#" target="https://www.linkedin.com/in/munther-elsarafandi/" rel="noreferrer">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4V14a6 6 0 0 1 6-6Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M2 9h4v12H2z" stroke="currentColor" stroke-width="1.7"/><path d="M4 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z" stroke="currentColor" stroke-width="1.7"/></svg>
             LinkedIn
           </a>
 
-          <a class="btn" href="https://tryhackme.com/p/1mun" target="_blank" rel="noreferrer">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l8 4v6c0 5-3.4 9.4-8 10-4.6-.6-8-5-8-10V6l8-4Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9.5 12l1.8 1.8L15 10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            TryHackMe
-          </a>
-
-          <!-- ✅ Projects page -->
-          <a class="btn" href="projects.html">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
-            </svg>
-            All Projects
+          <a class="btn" href="https://github.com/munzer-elsarafandi" target="_blank" rel="noreferrer">
+            GitHub
           </a>
         </div>
       </div>
@@ -248,78 +333,209 @@
 
         <ul class="list">
           <li class="item">
-            <div class="ic" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
-                <path d="M12 2l8 4v6c0 5-3.4 9.4-8 10-4.6-.6-8-5-8-10V6l8-4Z" stroke="currentColor" stroke-width="1.6"/>
-              </svg>
-            </div>
+            <div class="ic" aria-hidden="true">🛡️</div>
             <div>
               <h4>Security Fundamentals</h4>
-              <p>Networking, Linux, threat mindset, and safe tooling.</p>
+              <p>Networking, Linux, web security, and defensive mindset.</p>
             </div>
           </li>
 
           <li class="item">
-            <div class="ic blue" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
-                <path d="M4 19a8 8 0 1 1 16 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-                <path d="M12 11V6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-                <path d="M12 11l3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-              </svg>
-            </div>
+            <div class="ic blue" aria-hidden="true">📈</div>
             <div>
-              <h4>Hands-On Practice</h4>
-              <p>CTF-style labs, writeups, and mini projects.</p>
+              <h4>Monitoring & Logs</h4>
+              <p>Prometheus/Grafana + log analysis and alerting.</p>
             </div>
           </li>
 
           <li class="item">
-            <div class="ic green" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
-                <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-                <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" stroke="currentColor" stroke-width="1.6"/>
-              </svg>
-            </div>
+            <div class="ic green" aria-hidden="true">⚙️</div>
             <div>
-              <h4>Learning Rhythm</h4>
-              <p>Consistent progress: notes, labs, and iteration.</p>
+              <h4>Hands-On Projects</h4>
+              <p>Packet Tracer labs, hardening, web pentesting, and case studies.</p>
             </div>
           </li>
         </ul>
       </aside>
     </section>
 
-    <section class="grid">
-      <div class="card section">
-        <h2>About</h2>
-        <p class="muted" style="margin:0; line-height:1.6">
-          I’m building a strong foundation in Cybercrime IT Security through coursework and hands-on practice.
-          My interests include <b>incident response</b>, <b>network security</b>, and <b>secure systems</b>.
-          This page is a simple hub for my work and progress.
-        </p>
+    <!-- About -->
+    <section class="card section">
+      <h2>About</h2>
+      <p class="muted" style="margin:0; line-height:1.6">
+        I’m building a strong foundation in cybersecurity through coursework and hands-on practice.
+        My interests include incident response, network security, security monitoring, and web application security.
+      </p>
+      <div class="chips">
+        <span class="chip">Incident Response</span>
+        <span class="chip">Network Security</span>
+        <span class="chip">Monitoring</span>
+        <span class="chip">Web Security</span>
+        <span class="chip">Linux</span>
+      </div>
+    </section>
 
-        <div class="chips" aria-label="Skills">
-          <span class="chip">Linux</span>
-          <span class="chip">Networking</span>
-          <span class="chip">Incident Response</span>
-          <span class="chip">CTF / Labs</span>
-          <span class="chip">Monitoring</span>
-          <span class="chip">GRC basics</span>
+    <!-- CV Snapshot -->
+    <section class="card section" style="margin-top:18px;">
+      <h2>CV Snapshot</h2>
+      <p class="muted" style="margin:0;line-height:1.6">
+        Cybercrime IT Security student (Cybercrime & IT Security) with hands-on projects in secure networking, Linux hardening,
+        security monitoring (Prometheus/Grafana/Fail2ban), and web application security testing.
+        Seeking work placement / internship opportunities in SOC, monitoring, and incident response.
+      </p>
+
+      <div class="chips">
+        <span class="chip">SOC-style labs</span>
+        <span class="chip">Documentation</span>
+        <span class="chip">Hands-on troubleshooting</span>
+        <span class="chip">Security Monitoring</span>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section class="card section" style="margin-top:18px;">
+      <h2>Skills</h2>
+
+      <div class="skillsGrid">
+        <div class="skillsBox">
+          <h3>Technical Skills</h3>
+          <div class="chips">
+            <span class="chip">Networking (VLANs, Routing, DHCP)</span>
+            <span class="chip">IP Addressing • LAN/WAN</span>
+            <span class="chip">Security Monitoring</span>
+            <span class="chip">Incident Handling & Reporting</span>
+            <span class="chip">Log Analysis</span>
+            <span class="chip">Linux Hardening</span>
+            <span class="chip">Web Security Testing</span>
+            <span class="chip">Risk Assessment</span>
+          </div>
+        </div>
+
+        <div class="skillsBox">
+          <h3>Tools & Platforms</h3>
+          <div class="chips">
+            <span class="chip">Wireshark</span>
+            <span class="chip">Nmap</span>
+            <span class="chip">Kali Linux</span>
+            <span class="chip">Cisco Packet Tracer</span>
+            <span class="chip">Prometheus</span>
+            <span class="chip">Grafana</span>
+            <span class="chip">Fail2ban</span>
+            <span class="chip">Git/GitHub</span>
+            <span class="chip">Virtualization</span>
+          </div>
+        </div>
+
+        <div class="skillsBox">
+          <h3>Programming / Scripting</h3>
+          <div class="chips">
+            <span class="chip">Python</span>
+            <span class="chip">Bash / Shell</span>
+            <span class="chip">PowerShell</span>
+            <span class="chip">Java</span>
+            <span class="chip">HTML/CSS/JS</span>
+          </div>
+        </div>
+
+        <div class="skillsBox">
+          <h3>Core & Soft Skills</h3>
+          <div class="chips">
+            <span class="chip">Communication</span>
+            <span class="chip">Teamwork</span>
+            <span class="chip">Problem Solving</span>
+            <span class="chip">Working Under Pressure</span>
+            <span class="chip">Documentation</span>
+            <span class="chip">Time Management</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Certifications -->
+    <section id="certs" class="card section" style="margin-top:18px;">
+      <h2>Certifications</h2>
+
+      <div class="certGrid">
+        <!-- Ready -->
+        <div class="certCard">
+          <div class="certTop">
+            <b>TryHackMe — Advent of Cyber (AOC)</b>
+            <span class="status ready">READY</span>
+          </div>
+          <p class="muted" style="margin:0;">Certificate available.</p>
+          <div class="certActions">
+            <!-- Upload file to: assets/certs/aoc-tryhackme.pdf -->
+            <a class="miniBtn" href="assets/certs/THM-AoC2025.pdf" target="_blank" rel="noreferrer">
+              View Certificate
+            </a>
+          </div>
+        </div>
+
+        <div class="certCard">
+          <div class="certTop">
+            <b>TryHackMe — Pre-Security</b>
+            <span class="status ready">READY</span>
+          </div>
+          <p class="muted" style="margin:0;">Certificate available.</p>
+          <div class="certActions">
+            <!-- Upload file to: assets/certs/pre-security.pdf -->
+            <a class="miniBtn" href="assets/certs/THM-X2WJFHBSED.pdf" target="_blank" rel="noreferrer">
+              View Certificate
+            </a>
+          </div>
+        </div>
+
+        <!-- In Progress -->
+        <div class="certCard">
+          <div class="certTop">
+            <b>CompTIA Security+</b>
+            <span class="status progress">IN PROGRESS</span>
+          </div>
+          <p class="muted" style="margin:0;">
+            <span style="color:var(--danger);font-weight:700;">In progress</span> — study & labs ongoing.
+          </p>
+        </div>
+
+        <div class="certCard">
+          <div class="certTop">
+            <b>eJPTv2 (INE)</b>
+            <span class="status progress">IN PROGRESS</span>
+          </div>
+          <p class="muted" style="margin:0;">
+            <span style="color:var(--danger);font-weight:700;">In progress</span> — training ongoing.
+          </p>
+        </div>
+      </div>
+
+      <p class="muted" style="margin:12px 0 0; font-size:12.5px;">
+        If “View Certificate” doesn’t open, upload the PDFs into <b>assets/certs/</b> with the same filenames above.
+      </p>
+    </section>
+
+    <!-- Projects + Sidebar -->
+    <section class="grid" style="margin-top:18px;">
+      <div class="card section">
+        <h2>Quick Links</h2>
+        <p class="muted" style="margin:0;line-height:1.6">
+          Use this site as a simple hub. I’ll keep updating projects, write-ups, and certificates.
+        </p>
+        <div class="chips">
+          <span class="chip">cy-mun.com</span>
+          <span class="chip">GitHub Pages</span>
+          <span class="chip">Cloudflare DNS</span>
         </div>
       </div>
 
       <div class="card section">
         <h2>Projects</h2>
 
-        <!-- ✅ Scrollable projects list -->
         <div class="projWrap">
           <ul class="proj">
-            <!-- All items link to the flashcards page -->
             <li>
               <a href="projects.html#metrohealth">
                 <div class="projHead">
                   <b>Secure and Scalable LAN Design — MetroHealth Hospital</b>
-                  <span class="tag">VLANs • DHCP • L3 Routing</span>
+                  <span class="tag">VLANs • DHCP • L3</span>
                 </div>
                 <p>Secure LAN architecture with segmentation, inter-VLAN routing, redundancy & hardening.</p>
               </a>
@@ -331,17 +547,17 @@
                   <b>Emerald Retail Networking Project</b>
                   <span class="tag">IPv4/IPv6 • WLAN</span>
                 </div>
-                <p>HQ + branches with VLANs, DHCP, static routing, WPA3 and Layer 2 protections.</p>
+                <p>HQ + branches with VLANs, DHCP, static routing, WPA3 + Layer 2 protections.</p>
               </a>
             </li>
 
             <li>
               <a href="projects.html#linux-automation">
                 <div class="projHead">
-                  <b>Linux Security & Automation Project</b>
+                  <b>Linux Security & Automation</b>
                   <span class="tag">Bash • Firewall</span>
                 </div>
-                <p>Hardening via user/group controls, permissions, firewall rules and automated updates.</p>
+                <p>Hardening via users/permissions + automated updates + log monitoring.</p>
               </a>
             </li>
 
@@ -349,9 +565,9 @@
               <a href="projects.html#hardening-performance">
                 <div class="projHead">
                   <b>System Hardening & Performance Optimization</b>
-                  <span class="tag">systemctl • Least Privilege</span>
+                  <span class="tag">systemctl • Least Priv</span>
                 </div>
-                <p>Reduced attack surface, disabled unnecessary services, and validated improvements.</p>
+                <p>Reduced attack surface and validated improvements using system metrics.</p>
               </a>
             </li>
 
@@ -359,19 +575,9 @@
               <a href="projects.html#prom-graf-f2b">
                 <div class="projHead">
                   <b>Prometheus, Grafana & Fail2ban Monitoring</b>
-                  <span class="tag">Observability • Alerts</span>
+                  <span class="tag">Alerts • Blue Team</span>
                 </div>
-                <p>Metrics + dashboards + alert rules, plus brute-force blocking with simulated scenarios.</p>
-              </a>
-            </li>
-
-            <li>
-              <a href="projects.html#fake-malware">
-                <div class="projHead">
-                  <b>Fake Malware & Evasion Techniques (Simulated)</b>
-                  <span class="tag">Behavioral Analysis</span>
-                </div>
-                <p>Studied execution flow, evasion concepts, sandbox awareness and detection limitations.</p>
+                <p>Dashboards + alert rules + brute-force blocking with simulated scenarios.</p>
               </a>
             </li>
 
@@ -381,7 +587,7 @@
                   <b>Web Application Penetration Testing</b>
                   <span class="tag">OWASP • ZAP</span>
                 </div>
-                <p>Manual + automated testing: XSS, SQLi, auth bypass, sessions & reporting.</p>
+                <p>XSS, SQLi, authentication and session weaknesses in a vulnerable app.</p>
               </a>
             </li>
 
@@ -389,19 +595,9 @@
               <a href="projects.html#crypto-benchmark">
                 <div class="projHead">
                   <b>Cryptography Benchmarking</b>
-                  <span class="tag">Python • Performance</span>
+                  <span class="tag">Python</span>
                 </div>
-                <p>Benchmarked symmetric/asymmetric/hashing algorithms under consistent conditions.</p>
-              </a>
-            </li>
-
-            <li>
-              <a href="projects.html#ust-treasury">
-                <div class="projHead">
-                  <b>UST Treasury Cyber Breach — Janet Yellen (Case Study)</b>
-                  <span class="tag">Threat • Risk</span>
-                </div>
-                <p>Stakeholders, systemic risk, and threat analysis for a major cybersecurity incident.</p>
+                <p>Benchmarked cryptographic algorithms to compare efficiency and performance.</p>
               </a>
             </li>
 
@@ -409,9 +605,19 @@
               <a href="projects.html#optum">
                 <div class="projHead">
                   <b>Optum Cybersecurity Incident Project</b>
-                  <span class="tag">Impact • Response</span>
+                  <span class="tag">Case Study</span>
                 </div>
-                <p>Healthcare breach analysis: vulnerabilities, impact, and recommendations.</p>
+                <p>Analyzed vulnerabilities, impact, and response strategies.</p>
+              </a>
+            </li>
+
+            <li>
+              <a href="projects.html#ust-treasury">
+                <div class="projHead">
+                  <b>UST Treasury Cyber Breach — Janet Yellen</b>
+                  <span class="tag">Risk • Stakeholders</span>
+                </div>
+                <p>Threat analysis and systemic risk mapping.</p>
               </a>
             </li>
 
@@ -419,19 +625,19 @@
               <a href="projects.html#grc">
                 <div class="projHead">
                   <b>Compliance, Governance & Regulatory Analysis</b>
-                  <span class="tag">GRC • Policy</span>
+                  <span class="tag">GRC</span>
                 </div>
                 <p>Compliance requirements, governance frameworks, and accountability mapping.</p>
               </a>
             </li>
 
             <li>
-              <a href="projects.html#cpp">
+              <a href="projects.html#fake-malware">
                 <div class="projHead">
-                  <b>C / C++ Programming Project</b>
-                  <span class="tag">Algorithms • Memory</span>
+                  <b>Fake Malware & Evasion (Simulated)</b>
+                  <span class="tag">Defensive</span>
                 </div>
-                <p>Applications focusing on efficient I/O, algorithms, and memory handling.</p>
+                <p>Execution flow + evasion concepts + sandbox awareness (controlled).</p>
               </a>
             </li>
 
@@ -442,6 +648,16 @@
                   <span class="tag">PHP • MySQL</span>
                 </div>
                 <p>Full-stack app with authentication and database integration.</p>
+              </a>
+            </li>
+
+            <li>
+              <a href="projects.html#cpp">
+                <div class="projHead">
+                  <b>C / C++ Programming</b>
+                  <span class="tag">Algorithms</span>
+                </div>
+                <p>Memory handling and efficient I/O applications.</p>
               </a>
             </li>
 
@@ -459,9 +675,9 @@
               <a href="projects.html#ethics">
                 <div class="projHead">
                   <b>Cybersecurity Ethics Research</b>
-                  <span class="tag">Privacy • Rights</span>
+                  <span class="tag">Research</span>
                 </div>
-                <p>Explored privacy, surveillance, and digital rights with balanced solutions.</p>
+                <p>Privacy, surveillance, and digital rights with balanced solutions.</p>
               </a>
             </li>
 
@@ -470,12 +686,12 @@
       </div>
     </section>
 
-    <!-- ✅ Footer updated: Name -> LinkedIn, plus email -->
+    <!-- Footer -->
     <footer>
       <div>
         © <span id="y"></span>
-        <!-- Replace href with your real LinkedIn URL -->
-        <a href="#" target="_blank" rel="noreferrer">Munzer</a>
+        <!-- Replace with your LinkedIn URL -->
+        <a href="#" target="https://www.linkedin.com/in/munther-elsarafandi/" rel="noreferrer">Munzer</a>
         • cy-mun.com
       </div>
 
