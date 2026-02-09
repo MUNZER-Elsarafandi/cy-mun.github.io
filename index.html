@@ -46,6 +46,16 @@
     /* Header */
     .top{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:10px 0 26px;}
     .brand{display:flex;align-items:center;gap:12px;}
+    
+    .logoImg{
+  width:48px;
+  height:48px;
+  border-radius:14px;
+  border:1px solid rgba(231,238,252,.24);
+  background: rgba(255,255,255,.06);
+  box-shadow: 0 10px 26px rgba(0,0,0,.35);
+}
+
     .avatar{
       width:104px;height:104px;border-radius:999px;
       object-fit:cover;
@@ -271,10 +281,11 @@
 <body>
   <div class="wrap">
     <header class="top">
-      <div class="brand">
-        <!-- Upload your photo: assets/me.jpg -->
-        <img class="avatar" src="assets/me.jpg" alt="Munther photo" />
-        <div>
+     <div class="brand">
+  <img class="logoImg" src="assets/logo.svg" alt="cy-mun logo" />
+  <img class="avatar" src="assets/me.jpg" alt="Munther photo" />
+  <div>
+
           <h1>cy-mun.com</h1>
           <p>Munther • CybersCybercrime IT Security Student</p>
         </div>
