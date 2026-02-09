@@ -3,457 +3,707 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="Munzer — Project Flashcards" />
-  <title>Projects | Munzer</title>
+  <meta name="description" content="Munzer — Cybersecurity Student | Projects, skills, and certifications." />
+  <title>Munzer | Cybersecurity</title>
+
+  <!-- Optional favicon (upload assets/favicon.png) -->
+  <link rel="icon" href="assets/favicon.png" type="image/png">
 
   <style>
     :root{
-      --bg:#0b1220;
+      --bg: #0b1220;
       --panel: rgba(255,255,255,.06);
-      --line: rgba(231,238,252,.12);
-      --text:#e7eefc;
+      --text: #e7eefc;
       --muted: rgba(231,238,252,.72);
+      --line: rgba(231,238,252,.12);
+      --accent: #7c5cff;
+      --accent2:#22c55e;
+      --danger:#ef4444;
       --shadow: 0 20px 60px rgba(0,0,0,.35);
-      --radius: 18px;
+      --radius: 20px;
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans";
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:var(--sans);
-      color:var(--text);
-      background:
-        radial-gradient(1200px 600px at 80% -10%, rgba(124,92,255,.30), transparent 60%),
-        radial-gradient(900px 500px at 10% 10%, rgba(34,197,94,.16), transparent 55%),
-        var(--bg);
-    }
-    a{color:inherit;text-decoration:none}
-    .wrap{max-width:1100px;margin:0 auto;padding:26px 18px 60px;}
-    .top{
-      display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
-      margin-bottom:18px;
-    }
-    .title{margin:0;font-size:clamp(22px,3.2vw,34px);letter-spacing:-.02em;}
-    .sub{margin:6px 0 0;color:var(--muted);line-height:1.5}
-    .btns{display:flex;gap:10px;flex-wrap:wrap}
-    .btn{
-      padding:10px 12px;border-radius:14px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.05);
-      font-size:13px;font-weight:650;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";
+      --max: 1050px;
     }
 
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap:14px;
-      margin-top:14px;
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 80% -10%, rgba(124,92,255,.35), transparent 60%),
+        radial-gradient(900px 500px at 10% 10%, rgba(34,197,94,.20), transparent 55%),
+        radial-gradient(700px 500px at 60% 120%, rgba(59,130,246,.18), transparent 60%),
+        var(--bg);
+      overflow-x:hidden;
     }
+
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:var(--max);margin:0 auto;padding:28px 18px 60px;}
+
+    /* Header */
+    .top{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:10px 0 26px;}
+    .brand{display:flex;align-items:center;gap:12px;}
+    .avatar{
+      width:42px;height:42px;border-radius:999px;
+      object-fit:cover;
+      border:1px solid rgba(231,238,252,.18);
+      box-shadow: 0 14px 30px rgba(0,0,0,.30);
+      background: rgba(255,255,255,.06);
+    }
+    .brand h1{font-size:15px;margin:0;letter-spacing:.5px;font-weight:700;text-transform:uppercase;opacity:.95;}
+    .brand p{margin:2px 0 0;font-size:13px;color:var(--muted);}
+
+    .pillrow{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:9px 12px;border-radius:999px;border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      backdrop-filter: blur(10px);
+      font-size:13px;color:var(--muted);
+    }
+    .dot{width:8px;height:8px;border-radius:99px;background:var(--accent2);box-shadow:0 0 0 6px rgba(34,197,94,.14);}
+
     .card{
       background: var(--panel);
       border: 1px solid var(--line);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
       overflow:hidden;
     }
 
-    /* ✅ Flashcard */
-    .flash{ perspective: 1200px; }
-    .inner{
-      position:relative;
-      min-height: 245px;
-      transform-style: preserve-3d;
-      transition: transform .55s ease;
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1.25fr .75fr;gap:18px;align-items:stretch;margin-bottom:18px;}
+    .heroMain{padding:26px 22px;position:relative;}
+    .heroMain::before{
+      content:"";position:absolute;inset:-1px;
+      background:
+        radial-gradient(600px 300px at 20% 10%, rgba(124,92,255,.22), transparent 60%),
+        radial-gradient(500px 300px at 80% 20%, rgba(34,197,94,.16), transparent 60%);
+      pointer-events:none;
     }
-    .flash.flipped .inner{ transform: rotateY(180deg); }
-
-    .face{
-      position:absolute; inset:0;
-      padding:16px 16px 14px;
-      backface-visibility:hidden;
-    }
-    .back{
-      transform: rotateY(180deg);
-      border-top: 1px solid rgba(231,238,252,.10);
-    }
+    .heroMain > *{position:relative}
 
     .kicker{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:8px 12px;border-radius:999px;
+      background: rgba(124,92,255,.12);
+      border: 1px solid rgba(124,92,255,.22);
+      color: rgba(231,238,252,.85);
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+    .kicker span{width:8px;height:8px;border-radius:999px;background:var(--accent);box-shadow:0 0 0 6px rgba(124,92,255,.14);}
+    .title{margin:14px 0 8px;font-size:clamp(28px,4vw,44px);line-height:1.05;letter-spacing:-0.02em;}
+    .title b{background:linear-gradient(90deg,#fff, rgba(255,255,255,.72));-webkit-background-clip:text;background-clip:text;color:transparent;}
+    .subtitle{margin:0;color:var(--muted);font-size:15.5px;line-height:1.55;max-width:62ch;}
+
+    .ctaRow{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;}
+    .btn{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:11px 14px;border-radius:14px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      color: rgba(231,238,252,.92);
+      font-weight:650;font-size:13.5px;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      cursor:pointer;
+    }
+    .btn:hover{transform:translateY(-1px);background:rgba(255,255,255,.08);border-color:rgba(231,238,252,.20)}
+    .btn.primary{border-color:rgba(124,92,255,.35);background:linear-gradient(135deg, rgba(124,92,255,.55), rgba(124,92,255,.20));}
+    .btn svg{width:16px;height:16px;opacity:.95}
+
+    .heroSide{padding:18px 18px 16px;display:flex;flex-direction:column;gap:12px;}
+    .miniTitle{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-bottom:10px;border-bottom:1px solid var(--line);}
+    .miniTitle h3{margin:0;font-size:14px;letter-spacing:.2px}
+    .badge{
       font-family: var(--mono);
       font-size: 12px;
       color: rgba(231,238,252,.75);
+      padding: 6px 10px;
+      border:1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,.04);
+    }
+    .list{display:flex;flex-direction:column;gap:10px;margin:0;padding:0;list-style:none;}
+    .item{display:flex;align-items:flex-start;gap:10px;padding:10px;border-radius:14px;border:1px solid rgba(231,238,252,.10);background: rgba(255,255,255,.03);}
+    .ic{width:34px;height:34px;border-radius:12px;display:grid;place-items:center;background:rgba(124,92,255,.14);border:1px solid rgba(124,92,255,.22);flex:0 0 auto;}
+    .ic.green{background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.22)}
+    .ic.blue{background:rgba(59,130,246,.12);border-color:rgba(59,130,246,.20)}
+    .item h4{margin:0;font-size:13.5px}
+    .item p{margin:2px 0 0;color:var(--muted);font-size:12.75px;line-height:1.35}
+
+    /* Layout grid sections */
+    .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;margin-top:18px;}
+    .section{padding:18px;}
+    .section h2{margin:0 0 10px;font-size:14px;letter-spacing:.3px;text-transform:uppercase;color:rgba(231,238,252,.86);}
+    .muted{color:var(--muted)}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+    .chip{font-family:var(--mono);font-size:12px;color:rgba(231,238,252,.82);padding:7px 10px;border-radius:999px;border:1px solid rgba(231,238,252,.12);background:rgba(255,255,255,.03);}
+
+    /* Skills grid */
+    .skillsGrid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap:14px;
+      margin-top:10px;
+    }
+    .skillsBox{
+      padding:14px;
+      border-radius:16px;
+      border:1px solid rgba(231,238,252,.10);
+      background: rgba(255,255,255,.03);
+    }
+    .skillsBox h3{
+      margin:0 0 10px;
+      font-size:13.5px;
+      color: rgba(231,238,252,.90);
+      letter-spacing:.2px;
+    }
+
+    /* Certifications */
+    .certGrid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap:14px;
+      margin-top:10px;
+    }
+    .certCard{
+      padding:14px;
+      border-radius:16px;
+      border:1px solid rgba(231,238,252,.10);
+      background: rgba(255,255,255,.03);
       display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .certTop{
+      display:flex;
+      align-items:center;
       justify-content:space-between;
       gap:10px;
-      margin-bottom:10px;
     }
-    .pill{
-      font-family: var(--mono);
-      font-size: 11.5px;
-      padding: 5px 9px;
-      border-radius: 999px;
+    .status{
+      font-family:var(--mono);
+      font-size:11.5px;
+      padding:5px 9px;
+      border-radius:999px;
       border:1px solid rgba(231,238,252,.12);
       background: rgba(255,255,255,.03);
-      color: rgba(231,238,252,.78);
+      color: rgba(231,238,252,.75);
       white-space:nowrap;
     }
-    h3{margin:0 0 8px;font-size:15.5px;line-height:1.25}
-    p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
-    ul{margin:10px 0 0;padding-left:18px;color:rgba(231,238,252,.78);font-size:13px;line-height:1.5}
-
-    .actions{
-      margin-top:14px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
+    .status.ready{
+      border-color: rgba(34,197,94,.25);
+      color: rgba(34,197,94,.95);
+      background: rgba(34,197,94,.08);
     }
-    .small{
+    .status.progress{
+      border-color: rgba(239,68,68,.25);
+      color: rgba(239,68,68,.95);
+      background: rgba(239,68,68,.08);
+    }
+    .certCard b{font-size:13.8px}
+    .certActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
+    .miniBtn{
       display:inline-flex;align-items:center;gap:8px;
       padding:9px 10px;border-radius:12px;
       border:1px solid rgba(231,238,252,.12);
       background: rgba(255,255,255,.04);
       font-size:12.75px;font-weight:650;
-      cursor:pointer;
-      user-select:none;
     }
-    .small:active{transform:translateY(1px)}
-    .hint{margin-top:10px;color:rgba(231,238,252,.60);font-size:12.5px}
+
+    /* Projects list with scrollbar */
+    .projWrap{
+      max-height: 350px;
+      overflow-y: auto;
+      padding-right: 6px;
+      scroll-behavior: smooth;
+    }
+    .projWrap::-webkit-scrollbar{width:10px;}
+    .projWrap::-webkit-scrollbar-thumb{background:rgba(231,238,252,.16);border-radius:999px;}
+    .projWrap::-webkit-scrollbar-track{background:rgba(255,255,255,.02);border-radius:999px;}
+
+    .proj{display:flex;flex-direction:column;gap:10px;margin:0;padding:0;list-style:none;}
+    .proj a{
+      display:block;padding:12px;border-radius:16px;
+      border:1px solid rgba(231,238,252,.10);
+      background: rgba(255,255,255,.03);
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .proj a:hover{transform:translateY(-1px);background:rgba(255,255,255,.06);border-color:rgba(231,238,252,.18)}
+    .projHead{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .projHead b{font-size:13.8px}
+    .tag{
+      font-family:var(--mono);font-size:11.5px;color:rgba(231,238,252,.70);
+      padding:5px 9px;border-radius:999px;border:1px solid rgba(231,238,252,.12);
+      background: rgba(255,255,255,.02);
+      white-space:nowrap;
+    }
+    .proj p{margin:6px 0 0;color:var(--muted);font-size:13px;line-height:1.45}
+
+    footer{
+      margin-top:18px;padding:16px 6px 0;
+      color: rgba(231,238,252,.62);
+      font-size:12.5px;
+      display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+    }
+    footer a{color:rgba(231,238,252,.86);text-decoration:underline;text-underline-offset:2px}
+    .footerRight{display:flex;gap:12px;flex-wrap:wrap;color:rgba(231,238,252,.62)}
+
+    /* smooth scroll */
+    html{scroll-behavior:smooth}
 
     @media (max-width: 900px){
-      .grid{grid-template-columns: 1fr;}
-      .inner{min-height: 260px;}
+      .hero{grid-template-columns:1fr}
+      .grid{grid-template-columns:1fr}
+      .pillrow{justify-content:flex-start}
+      .projWrap{max-height: 420px;}
+      .skillsGrid{grid-template-columns:1fr}
+      .certGrid{grid-template-columns:1fr}
     }
   </style>
 </head>
+
 <body>
   <div class="wrap">
     <header class="top">
-      <div>
-        <h1 class="title">Projects (Flashcards)</h1>
-        <p class="sub">Each card flips independently. Click <b>Flip</b> to view full details.</p>
+      <div class="brand">
+        <!-- Upload your photo: assets/me.jpg -->
+        <img class="avatar" src="assets/me.jpg" alt="Munzer photo" />
+        <div>
+          <h1>cy-mun.com</h1>
+          <p>Munzer • Cybersecurity Student</p>
+        </div>
       </div>
-      <div class="btns">
-        <a class="btn" href="index.html">← Back</a>
-        <a class="btn" href="mailto:muntherhani@gmail.com">Email</a>
-        <!-- ضع رابط لينكدإن الحقيقي -->
-        <a class="btn" href="#" target="_blank" rel="noreferrer">LinkedIn</a>
+
+      <div class="pillrow">
+        <div class="pill"><span class="dot"></span>Available for Internship</div>
+        <div class="pill">Based in Ireland</div>
       </div>
     </header>
 
-    <div class="grid">
+    <section class="hero">
+      <div class="card heroMain">
+        <div class="kicker"><span></span>Building secure systems • Learning by doing</div>
+        <h2 class="title">Hi, I’m <b>Munzer</b>.</h2>
+        <p class="subtitle">
+          Cybersecurity student focused on practical security skills: incident response, network security,
+          security monitoring, and hands-on labs.
+        </p>
 
-      <!-- 1 -->
-      <section id="metrohealth" class="card flash">
-        <div class="inner">
-          <div class="face front">
-            <div class="kicker"><span class="pill">Networking • LAN</span><span class="pill">VLANs • DHCP</span></div>
-            <h3>Secure and Scalable LAN Design — MetroHealth Hospital</h3>
-            <p><b>Overview:</b> Designed a secure LAN with VLAN segmentation, DHCP, and inter-VLAN routing.</p>
-            <div class="actions">
-              <button class="small" type="button" data-flip>Flip</button>
+        <div class="ctaRow">
+          <a class="btn primary" href="projects.html">
+            Projects
+          </a>
+
+          <!-- Upload CV to: assets/Munzer-CV.pdf -->
+          <a class="btn" href="assets/Munzer-CV.pdf" target="_blank" rel="noreferrer">
+            Download CV
+          </a>
+
+          <!-- ✅ Button that scrolls to Certifications section (WORKS) -->
+          <a class="btn" href="#certs">
+            Certifications
+          </a>
+
+          <a class="btn" href="mailto:muntherhani@gmail.com">
+            Email
+          </a>
+
+          <!-- Replace with your real LinkedIn URL -->
+          <a class="btn" href="#" target="_blank" rel="noreferrer">
+            LinkedIn
+          </a>
+
+          <a class="btn" href="https://github.com/munzer-elsarafandi" target="_blank" rel="noreferrer">
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <aside class="card heroSide">
+        <div class="miniTitle">
+          <h3>Highlights</h3>
+          <span class="badge">Cyber • Labs • IR</span>
+        </div>
+
+        <ul class="list">
+          <li class="item">
+            <div class="ic" aria-hidden="true">🛡️</div>
+            <div>
+              <h4>Security Fundamentals</h4>
+              <p>Networking, Linux, web security, and defensive mindset.</p>
             </div>
-            <div class="hint">Shows full security controls & tools on the back.</div>
-          </div>
+          </li>
 
-          <div class="face back">
-            <div class="kicker"><span class="pill">Full Details</span><span class="pill">Tools</span></div>
-            <ul>
-              <li><b>Overview:</b> Secure LAN architecture with VLAN segmentation, DHCP services, and Layer 3 routing.</li>
-              <li><b>Security:</b> Mitigated VLAN hopping, DHCP spoofing, ARP poisoning; documented redundancy & HA.</li>
-              <li><b>Tools/Tech:</b> Cisco Packet Tracer, VLANs, DHCP, Routing, Network Security.</li>
-            </ul>
-            <div class="actions">
-              <button class="small" type="button" data-flip>Flip back</button>
+          <li class="item">
+            <div class="ic blue" aria-hidden="true">📈</div>
+            <div>
+              <h4>Monitoring & Logs</h4>
+              <p>Prometheus/Grafana + log analysis and alerting.</p>
             </div>
+          </li>
+
+          <li class="item">
+            <div class="ic green" aria-hidden="true">⚙️</div>
+            <div>
+              <h4>Hands-On Projects</h4>
+              <p>Packet Tracer labs, hardening, web pentesting, and case studies.</p>
+            </div>
+          </li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- About -->
+    <section class="card section">
+      <h2>About</h2>
+      <p class="muted" style="margin:0; line-height:1.6">
+        I’m building a strong foundation in cybersecurity through coursework and hands-on practice.
+        My interests include incident response, network security, security monitoring, and web application security.
+      </p>
+      <div class="chips">
+        <span class="chip">Incident Response</span>
+        <span class="chip">Network Security</span>
+        <span class="chip">Monitoring</span>
+        <span class="chip">Web Security</span>
+        <span class="chip">Linux</span>
+      </div>
+    </section>
+
+    <!-- CV Snapshot -->
+    <section class="card section" style="margin-top:18px;">
+      <h2>CV Snapshot</h2>
+      <p class="muted" style="margin:0;line-height:1.6">
+        Cybersecurity student (Cybercrime & IT Security) with hands-on projects in secure networking, Linux hardening,
+        security monitoring (Prometheus/Grafana/Fail2ban), and web application security testing.
+        Seeking work placement / internship opportunities in SOC, monitoring, and incident response.
+      </p>
+
+      <div class="chips">
+        <span class="chip">SOC-style labs</span>
+        <span class="chip">Documentation</span>
+        <span class="chip">Hands-on troubleshooting</span>
+        <span class="chip">Security Monitoring</span>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section class="card section" style="margin-top:18px;">
+      <h2>Skills</h2>
+
+      <div class="skillsGrid">
+        <div class="skillsBox">
+          <h3>Technical Skills</h3>
+          <div class="chips">
+            <span class="chip">Networking (VLANs, Routing, DHCP)</span>
+            <span class="chip">IP Addressing • LAN/WAN</span>
+            <span class="chip">Security Monitoring</span>
+            <span class="chip">Incident Handling & Reporting</span>
+            <span class="chip">Log Analysis</span>
+            <span class="chip">Linux Hardening</span>
+            <span class="chip">Web Security Testing</span>
+            <span class="chip">Risk Assessment</span>
           </div>
         </div>
-      </section>
 
-      <!-- 2 -->
-      <section id="emerald-retail" class="card flash">
-        <div class="inner">
-          <div class="face front">
-            <div class="kicker"><span class="pill">Routing</span><span class="pill">IPv4/IPv6</span></div>
-            <h3>Emerald Retail Networking Project</h3>
-            <p><b>Overview:</b> HQ + branches with VLANs, DHCP, and static routing across segments.</p>
-            <div class="actions"><button class="small" type="button" data-flip>Flip</button></div>
-            <div class="hint">Back shows wireless + Layer 2 protections.</div>
-          </div>
-          <div class="face back">
-            <ul>
-              <li><b>Overview:</b> Designed HQ/branches with VLANs, DHCP, static routing, and multi-subnet connectivity.</li>
-              <li><b>Security:</b> WPA3, MAC filtering, Layer 2 protections, SSH admin access.</li>
-              <li><b>Tools/Tech:</b> Cisco Packet Tracer, IPv4/IPv6, Wireless Security.</li>
-            </ul>
-            <div class="actions"><button class="small" type="button" data-flip>Flip back</button></div>
+        <div class="skillsBox">
+          <h3>Tools & Platforms</h3>
+          <div class="chips">
+            <span class="chip">Wireshark</span>
+            <span class="chip">Nmap</span>
+            <span class="chip">Kali Linux</span>
+            <span class="chip">Cisco Packet Tracer</span>
+            <span class="chip">Prometheus</span>
+            <span class="chip">Grafana</span>
+            <span class="chip">Fail2ban</span>
+            <span class="chip">Git/GitHub</span>
+            <span class="chip">Virtualization</span>
           </div>
         </div>
-      </section>
 
-      <!-- 3 -->
-      <section id="linux-automation" class="card flash">
-        <div class="inner">
-          <div class="face front">
-            <div class="kicker"><span class="pill">Linux</span><span class="pill">Bash</span></div>
-            <h3>Linux Security & Automation Project</h3>
-            <p><b>Overview:</b> Hardened Linux systems via user/group controls and permissions.</p>
-            <div class="actions"><button class="small" type="button" data-flip>Flip</button></div>
-          </div>
-          <div class="face back">
-            <ul>
-              <li><b>Overview:</b> Hardened Linux systems through secure user/group management and permission enforcement.</li>
-              <li><b>Automation:</b> Firewall rules, automated updates, log monitoring using Bash scripts.</li>
-              <li><b>Tools/Tech:</b> Linux, Bash, iptables/ufw.</li>
-            </ul>
-            <div class="actions"><button class="small" type="button" data-flip>Flip back</button></div>
+        <div class="skillsBox">
+          <h3>Programming / Scripting</h3>
+          <div class="chips">
+            <span class="chip">Python</span>
+            <span class="chip">Bash / Shell</span>
+            <span class="chip">PowerShell</span>
+            <span class="chip">Java</span>
+            <span class="chip">HTML/CSS/JS</span>
           </div>
         </div>
-      </section>
 
-      <!-- 4 -->
-      <section id="hardening-performance" class="card flash">
-        <div class="inner">
-          <div class="face front">
-            <div class="kicker"><span class="pill">Hardening</span><span class="pill">Performance</span></div>
-            <h3>System Hardening & Performance Optimization</h3>
-            <p><b>Overview:</b> Reduced attack surface and tuned services to improve security/performance.</p>
-            <div class="actions"><button class="small" type="button" data-flip>Flip</button></div>
-          </div>
-          <div class="face back">
-            <ul>
-              <li><b>Overview:</b> Optimized and secured a Linux system by reducing attack surface and tuning services.</li>
-              <li><b>Security & Performance:</b> Disabled unnecessary services, enforced least privilege, validated via metrics.</li>
-              <li><b>Tools/Tech:</b> Linux, Bash, systemctl, permissions management.</li>
-            </ul>
-            <div class="actions"><button class="small" type="button" data-flip>Flip back</button></div>
+        <div class="skillsBox">
+          <h3>Core & Soft Skills</h3>
+          <div class="chips">
+            <span class="chip">Communication</span>
+            <span class="chip">Teamwork</span>
+            <span class="chip">Problem Solving</span>
+            <span class="chip">Working Under Pressure</span>
+            <span class="chip">Documentation</span>
+            <span class="chip">Time Management</span>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- 5 -->
-      <section id="prom-graf-f2b" class="card flash">
-        <div class="inner">
-          <div class="face front">
-            <div class="kicker"><span class="pill">Monitoring</span><span class="pill">Blue Team</span></div>
-            <h3>Prometheus, Grafana & Fail2ban Security Monitoring</h3>
-            <p><b>Overview:</b> Metrics + dashboards + alerting, plus brute-force blocking in lab scenarios.</p>
-            <div class="actions"><button class="small" type="button" data-flip>Flip</button></div>
+    <!-- Certifications -->
+    <section id="certs" class="card section" style="margin-top:18px;">
+      <h2>Certifications</h2>
+
+      <div class="certGrid">
+        <!-- Ready -->
+        <div class="certCard">
+          <div class="certTop">
+            <b>TryHackMe — Advent of Cyber (AOC)</b>
+            <span class="status ready">READY</span>
           </div>
-          <div class="face back">
-            <ul>
-              <li><b>Overview:</b> Deployed Prometheus metrics collection and custom alert rules.</li>
-              <li><b>Observability:</b> Built Grafana dashboards for real-time visibility.</li>
-              <li><b>Defense:</b> Fail2ban blocked brute-force attempts with simulated scenarios.</li>
-              <li><b>Tools/Tech:</b> Prometheus, Grafana, Fail2ban, Ubuntu.</li>
-            </ul>
-            <div class="actions"><button class="small" type="button" data-flip>Flip back</button></div>
+          <p class="muted" style="margin:0;">Certificate available.</p>
+          <div class="certActions">
+            <!-- Upload file to: assets/certs/aoc-tryhackme.pdf -->
+            <a class="miniBtn" href="assets/certs/aoc-tryhackme.pdf" target="_blank" rel="noreferrer">
+              View Certificate
+            </a>
           </div>
         </div>
-      </section>
 
-      <!-- 6 -->
-      <section id="fake-malware" class="card flash">
-        <div class="inner">
-          <div class="face front">
-            <div class="kicker"><span class="pill">Malware Concepts</span><span class="pill">Defensive</span></div>
-            <h3>Fake Malware & Evasion Techniques (Simulated)</h3>
-            <p><b>Overview:</b> Simulated sample to study execution flow and evasion concepts safely.</p>
-            <div class="actions"><button class="small" type="button" data-flip>Flip</button></div>
+        <div class="certCard">
+          <div class="certTop">
+            <b>TryHackMe — Pre-Security</b>
+            <span class="status ready">READY</span>
           </div>
-          <div class="face back">
-            <ul>
-              <li><b>Overview:</b> Developed and analyzed a simulated malware sample (controlled environment).</li>
-              <li><b>Analysis:</b> Behavioral patterns, sandbox awareness concepts, detection limitations.</li>
-              <li><b>Skills:</b> Malware analysis concepts, behavioral analysis, defensive awareness.</li>
-            </ul>
-            <div class="actions"><button class="small" type="button" data-flip>Flip back</button></div>
+          <p class="muted" style="margin:0;">Certificate available.</p>
+          <div class="certActions">
+            <!-- Upload file to: assets/certs/pre-security.pdf -->
+            <a class="miniBtn" href="assets/certs/pre-security.pdf" target="_blank" rel="noreferrer">
+              View Certificate
+            </a>
           </div>
         </div>
-      </section>
 
-      <!-- 7 -->
-      <section id="web-pentest" class="card flash">
-        <div class="inner">
-          <div class="face front">
-            <div class="kicker"><span class="pill">Web Security</span><span class="pill">OWASP</span></div>
-            <h3>Web Application Penetration Testing</h3>
-            <p><b>Overview:</b> Manual + automated testing on a vulnerable web application.</p>
-            <div class="actions"><button class="small" type="button" data-flip>Flip</button></div>
+        <!-- In Progress -->
+        <div class="certCard">
+          <div class="certTop">
+            <b>CompTIA Security+</b>
+            <span class="status progress">IN PROGRESS</span>
           </div>
-          <div class="face back">
-            <ul>
-              <li><b>Findings:</b> XSS, SQL injection, auth bypass, session management issues.</li>
-              <li><b>Tools/Tech:</b> OWASP ZAP, PHP, HTML/JavaScript, Browser DevTools.</li>
-            </ul>
-            <div class="actions"><button class="small" type="button" data-flip>Flip back</button></div>
-          </div>
+          <p class="muted" style="margin:0;">
+            <span style="color:var(--danger);font-weight:700;">In progress</span> — study & labs ongoing.
+          </p>
         </div>
-      </section>
 
-      <!-- 8 -->
-      <section id="crypto-benchmark" class="card flash">
-        <div class="inner">
-          <div class="face front">
-            <div class="kicker"><span class="pill">Crypto</span><span class="pill">Python</span></div>
-            <h3>Cryptography Benchmarking</h3>
-            <p><b>Overview:</b> Benchmarked crypto algorithms to compare efficiency and performance.</p>
-            <div class="actions"><button class="small" type="button" data-flip>Flip</button></div>
+        <div class="certCard">
+          <div class="certTop">
+            <b>eJPTv2 (INE)</b>
+            <span class="status progress">IN PROGRESS</span>
           </div>
-          <div class="face back">
-            <ul>
-              <li><b>Analysis:</b> Compared symmetric, asymmetric, and hashing algorithms under consistent tests.</li>
-              <li><b>Tools/Tech:</b> Python, cryptography libraries, performance analysis.</li>
-            </ul>
-            <div class="actions"><button class="small" type="button" data-flip>Flip back</button></div>
-          </div>
+          <p class="muted" style="margin:0;">
+            <span style="color:var(--danger);font-weight:700;">In progress</span> — training ongoing.
+          </p>
         </div>
-      </section>
+      </div>
 
-      <!-- 9 -->
-      <section id="ust-treasury" class="card flash">
-        <div class="inner">
-          <div class="face front">
-            <div class="kicker"><span class="pill">Case Study</span><span class="pill">Risk</span></div>
-            <h3>UST Treasury Cyber Breach — Janet Yellen (Case Study)</h3>
-            <p><b>Focus:</b> Stakeholders + systemic risk areas + threat analysis.</p>
-            <div class="actions"><button class="small" type="button" data-flip>Flip</button></div>
-          </div>
-          <div class="face back">
-            <ul>
-              <li><b>Focus:</b> Researched incident context and systemic risk exposure.</li>
-              <li><b>Skills:</b> Threat analysis, cybercrime research, risk assessment.</li>
-            </ul>
-            <div class="actions"><button class="small" type="button" data-flip>Flip back</button></div>
-          </div>
+      <p class="muted" style="margin:12px 0 0; font-size:12.5px;">
+        If “View Certificate” doesn’t open, upload the PDFs into <b>assets/certs/</b> with the same filenames above.
+      </p>
+    </section>
+
+    <!-- Projects + Sidebar -->
+    <section class="grid" style="margin-top:18px;">
+      <div class="card section">
+        <h2>Quick Links</h2>
+        <p class="muted" style="margin:0;line-height:1.6">
+          Use this site as a simple hub. I’ll keep updating projects, write-ups, and certificates.
+        </p>
+        <div class="chips">
+          <span class="chip">cy-mun.com</span>
+          <span class="chip">GitHub Pages</span>
+          <span class="chip">Cloudflare DNS</span>
         </div>
-      </section>
+      </div>
 
-      <!-- 10 -->
-      <section id="optum" class="card flash">
-        <div class="inner">
-          <div class="face front">
-            <div class="kicker"><span class="pill">Incident</span><span class="pill">Healthcare</span></div>
-            <h3>Optum Cybersecurity Incident Project</h3>
-            <p><b>Focus:</b> Vulnerabilities, impact, and response strategies.</p>
-            <div class="actions"><button class="small" type="button" data-flip>Flip</button></div>
-          </div>
-          <div class="face back">
-            <ul>
-              <li><b>Focus:</b> Healthcare sector breach analysis: vulnerabilities, impact, response strategies.</li>
-              <li><b>Skills:</b> Incident analysis, impact assessment, security recommendations.</li>
-            </ul>
-            <div class="actions"><button class="small" type="button" data-flip>Flip back</button></div>
-          </div>
+      <div class="card section">
+        <h2>Projects</h2>
+
+        <div class="projWrap">
+          <ul class="proj">
+            <li>
+              <a href="projects.html#metrohealth">
+                <div class="projHead">
+                  <b>Secure and Scalable LAN Design — MetroHealth Hospital</b>
+                  <span class="tag">VLANs • DHCP • L3</span>
+                </div>
+                <p>Secure LAN architecture with segmentation, inter-VLAN routing, redundancy & hardening.</p>
+              </a>
+            </li>
+
+            <li>
+              <a href="projects.html#emerald-retail">
+                <div class="projHead">
+                  <b>Emerald Retail Networking Project</b>
+                  <span class="tag">IPv4/IPv6 • WLAN</span>
+                </div>
+                <p>HQ + branches with VLANs, DHCP, static routing, WPA3 + Layer 2 protections.</p>
+              </a>
+            </li>
+
+            <li>
+              <a href="projects.html#linux-automation">
+                <div class="projHead">
+                  <b>Linux Security & Automation</b>
+                  <span class="tag">Bash • Firewall</span>
+                </div>
+                <p>Hardening via users/permissions + automated updates + log monitoring.</p>
+              </a>
+            </li>
+
+            <li>
+              <a href="projects.html#hardening-performance">
+                <div class="projHead">
+                  <b>System Hardening & Performance Optimization</b>
+                  <span class="tag">systemctl • Least Priv</span>
+                </div>
+                <p>Reduced attack surface and validated improvements using system metrics.</p>
+              </a>
+            </li>
+
+            <li>
+              <a href="projects.html#prom-graf-f2b">
+                <div class="projHead">
+                  <b>Prometheus, Grafana & Fail2ban Monitoring</b>
+                  <span class="tag">Alerts • Blue Team</span>
+                </div>
+                <p>Dashboards + alert rules + brute-force blocking with simulated scenarios.</p>
+              </a>
+            </li>
+
+            <li>
+              <a href="projects.html#web-pentest">
+                <div class="projHead">
+                  <b>Web Application Penetration Testing</b>
+                  <span class="tag">OWASP • ZAP</span>
+                </div>
+                <p>XSS, SQLi, authentication and session weaknesses in a vulnerable app.</p>
+              </a>
+            </li>
+
+            <li>
+              <a href="projects.html#crypto-benchmark">
+                <div class="projHead">
+                  <b>Cryptography Benchmarking</b>
+                  <span class="tag">Python</span>
+                </div>
+                <p>Benchmarked cryptographic algorithms to compare efficiency and performance.</p>
+              </a>
+            </li>
+
+            <li>
+              <a href="projects.html#optum">
+                <div class="projHead">
+                  <b>Optum Cybersecurity Incident Project</b>
+                  <span class="tag">Case Study</span>
+                </div>
+                <p>Analyzed vulnerabilities, impact, and response strategies.</p>
+              </a>
+            </li>
+
+            <li>
+              <a href="projects.html#ust-treasury">
+                <div class="projHead">
+                  <b>UST Treasury Cyber Breach — Janet Yellen</b>
+                  <span class="tag">Risk • Stakeholders</span>
+                </div>
+                <p>Threat analysis and systemic risk mapping.</p>
+              </a>
+            </li>
+
+            <li>
+              <a href="projects.html#grc">
+                <div class="projHead">
+                  <b>Compliance, Governance & Regulatory Analysis</b>
+                  <span class="tag">GRC</span>
+                </div>
+                <p>Compliance requirements, governance frameworks, and accountability mapping.</p>
+              </a>
+            </li>
+
+            <li>
+              <a href="projects.html#fake-malware">
+                <div class="projHead">
+                  <b>Fake Malware & Evasion (Simulated)</b>
+                  <span class="tag">Defensive</span>
+                </div>
+                <p>Execution flow + evasion concepts + sandbox awareness (controlled).</p>
+              </a>
+            </li>
+
+            <li>
+              <a href="projects.html#fullstack">
+                <div class="projHead">
+                  <b>Dynamic Web Application Development</b>
+                  <span class="tag">PHP • MySQL</span>
+                </div>
+                <p>Full-stack app with authentication and database integration.</p>
+              </a>
+            </li>
+
+            <li>
+              <a href="projects.html#cpp">
+                <div class="projHead">
+                  <b>C / C++ Programming</b>
+                  <span class="tag">Algorithms</span>
+                </div>
+                <p>Memory handling and efficient I/O applications.</p>
+              </a>
+            </li>
+
+            <li>
+              <a href="projects.html#assembly">
+                <div class="projHead">
+                  <b>Assembly — Game of Tiny Thrones</b>
+                  <span class="tag">Easy68K</span>
+                </div>
+                <p>Text-based RPG with resource management and combat mechanics.</p>
+              </a>
+            </li>
+
+            <li>
+              <a href="projects.html#ethics">
+                <div class="projHead">
+                  <b>Cybersecurity Ethics Research</b>
+                  <span class="tag">Research</span>
+                </div>
+                <p>Privacy, surveillance, and digital rights with balanced solutions.</p>
+              </a>
+            </li>
+
+          </ul>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- 11 -->
-      <section id="grc" class="card flash">
-        <div class="inner">
-          <div class="face front">
-            <div class="kicker"><span class="pill">GRC</span><span class="pill">Compliance</span></div>
-            <h3>Compliance, Governance & Regulatory Analysis</h3>
-            <p><b>Overview:</b> Governance frameworks, risk management, and regulatory obligations.</p>
-            <div class="actions"><button class="small" type="button" data-flip>Flip</button></div>
-          </div>
-          <div class="face back">
-            <ul>
-              <li><b>Overview:</b> Analyzed cybersecurity compliance requirements and governance frameworks.</li>
-              <li><b>Focus:</b> policy alignment, regulatory obligations, stakeholder accountability.</li>
-              <li><b>Skills:</b> GRC, compliance analysis, risk assessment.</li>
-            </ul>
-            <div class="actions"><button class="small" type="button" data-flip>Flip back</button></div>
-          </div>
-        </div>
-      </section>
+    <!-- Footer -->
+    <footer>
+      <div>
+        © <span id="y"></span>
+        <!-- Replace with your LinkedIn URL -->
+        <a href="#" target="_blank" rel="noreferrer">Munzer</a>
+        • cy-mun.com
+      </div>
 
-      <!-- 12 -->
-      <section id="cpp" class="card flash">
-        <div class="inner">
-          <div class="face front">
-            <div class="kicker"><span class="pill">Programming</span><span class="pill">C/C++</span></div>
-            <h3>C / C++ Programming Project</h3>
-            <p><b>Overview:</b> Algorithms, memory handling, and efficient I/O applications.</p>
-            <div class="actions"><button class="small" type="button" data-flip>Flip</button></div>
-          </div>
-          <div class="face back">
-            <ul><li><b>Tools:</b> C, C++, GCC, Linux.</li></ul>
-            <div class="actions"><button class="small" type="button" data-flip>Flip back</button></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 13 -->
-      <section id="fullstack" class="card flash">
-        <div class="inner">
-          <div class="face front">
-            <div class="kicker"><span class="pill">Full-Stack</span><span class="pill">Web</span></div>
-            <h3>Dynamic Web Application Development</h3>
-            <p><b>Overview:</b> Full-stack app with authentication and database integration.</p>
-            <div class="actions"><button class="small" type="button" data-flip>Flip</button></div>
-          </div>
-          <div class="face back">
-            <ul><li><b>Tools/Tech:</b> HTML, CSS, JavaScript, PHP, MySQL, Java.</li></ul>
-            <div class="actions"><button class="small" type="button" data-flip>Flip back</button></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 14 -->
-      <section id="assembly" class="card flash">
-        <div class="inner">
-          <div class="face front">
-            <div class="kicker"><span class="pill">Assembly</span><span class="pill">Easy68K</span></div>
-            <h3>Assembly — Game of Tiny Thrones</h3>
-            <p><b>Overview:</b> Text-based RPG with resource management and combat mechanics.</p>
-            <div class="actions"><button class="small" type="button" data-flip>Flip</button></div>
-          </div>
-          <div class="face back">
-            <ul><li><b>Tools/Tech:</b> Assembly (Easy68K).</li></ul>
-            <div class="actions"><button class="small" type="button" data-flip>Flip back</button></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 15 -->
-      <section id="ethics" class="card flash">
-        <div class="inner">
-          <div class="face front">
-            <div class="kicker"><span class="pill">Research</span><span class="pill">Ethics</span></div>
-            <h3>Cybersecurity Ethics Research</h3>
-            <p><b>Focus:</b> Privacy, surveillance, digital rights, and balanced solutions.</p>
-            <div class="actions"><button class="small" type="button" data-flip>Flip</button></div>
-          </div>
-          <div class="face back">
-            <ul><li><b>Skills:</b> Cybersecurity ethics, critical thinking, research.</li></ul>
-            <div class="actions"><button class="small" type="button" data-flip>Flip back</button></div>
-          </div>
-        </div>
-      </section>
-
-    </div>
+      <div class="footerRight">
+        <span class="muted">Email:</span>
+        <a href="mailto:muntherhani@gmail.com">muntherhani@gmail.com</a>
+      </div>
+    </footer>
   </div>
 
   <script>
-    // ✅ Flip ONLY the card you clicked
-    document.addEventListener('click', (e) => {
-      const btn = e.target.closest('[data-flip]');
-      if (!btn) return;
-
-      e.preventDefault();
-      e.stopPropagation();
-
-      const card = btn.closest('.flash');
-      if (!card) return;
-
-      card.classList.toggle('flipped');
-    });
-
-    // ✅ If URL has #id, just scroll to it (no auto flip)
-    if (location.hash) {
-      const el = document.querySelector(location.hash);
-      if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
-    }
+    document.getElementById("y").textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
