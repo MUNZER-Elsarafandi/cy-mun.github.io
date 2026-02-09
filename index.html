@@ -275,10 +275,44 @@
       .skillsGrid{grid-template-columns:1fr}
       .certGrid{grid-template-columns:1fr}
     }
+    /* Floating center logo */
+.floating-logo{
+  position: fixed;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(231,238,252,.18);
+  backdrop-filter: blur(12px);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 12px 30px rgba(0,0,0,.35);
+  transition: transform .3s ease, opacity .3s ease;
+}
+
+.floating-logo img{
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+/* scroll animation */
+body.scrolled .floating-logo{
+  transform: translateX(-50%) scale(.9);
+  opacity: .75;
+}
   </style>
 </head>
 
 <body>
+  <!-- Floating Logo -->
+<div class="floating-logo">
+  <img src="assets/logo.png" alt="CY-MUN Logo">
+</div>
   <div class="wrap">
     <header class="top">
      <div class="brand">
@@ -712,8 +746,17 @@
     </footer>
   </div>
 
-  <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
-  </script>
+ <script>
+  document.getElementById("y").textContent = new Date().getFullYear();
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 40) {
+      document.body.classList.add("scrolled");
+    } else {
+      document.body.classList.remove("scrolled");
+    }
+  });
+</script>
+
 </body>
 </html>
