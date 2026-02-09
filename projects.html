@@ -34,11 +34,7 @@
       display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
       margin-bottom:18px;
     }
-    .title{
-      margin:0;
-      font-size: clamp(22px, 3.2vw, 34px);
-      letter-spacing:-.02em;
-    }
+    .title{margin:0;font-size:clamp(22px,3.2vw,34px);letter-spacing:-.02em;}
     .sub{margin:6px 0 0;color:var(--muted);line-height:1.5}
     .btns{display:flex;gap:10px;flex-wrap:wrap}
     .btn{
@@ -47,6 +43,7 @@
       background: rgba(255,255,255,.05);
       font-size:13px;font-weight:650;
     }
+
     .grid{
       display:grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -61,19 +58,16 @@
       overflow:hidden;
     }
 
-    /* Flashcard */
-    .flash{
-      perspective: 1200px;
-    }
+    /* ✅ Flashcard */
+    .flash{ perspective: 1200px; }
     .inner{
       position:relative;
-      min-height: 220px;
+      min-height: 245px;
       transform-style: preserve-3d;
       transition: transform .55s ease;
     }
-    .flash:target .inner{
-      transform: rotateY(180deg);
-    }
+    .flash.flipped .inner{ transform: rotateY(180deg); }
+
     .face{
       position:absolute; inset:0;
       padding:16px 16px 14px;
@@ -106,6 +100,7 @@
     h3{margin:0 0 8px;font-size:15.5px;line-height:1.25}
     p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
     ul{margin:10px 0 0;padding-left:18px;color:rgba(231,238,252,.78);font-size:13px;line-height:1.5}
+
     .actions{
       margin-top:14px;
       display:flex;
@@ -118,16 +113,15 @@
       border:1px solid rgba(231,238,252,.12);
       background: rgba(255,255,255,.04);
       font-size:12.75px;font-weight:650;
+      cursor:pointer;
+      user-select:none;
     }
-    .note{
-      margin-top:16px;
-      color:rgba(231,238,252,.60);
-      font-size:12.5px;
-    }
+    .small:active{transform:translateY(1px)}
+    .hint{margin-top:10px;color:rgba(231,238,252,.60);font-size:12.5px}
 
     @media (max-width: 900px){
       .grid{grid-template-columns: 1fr;}
-      .inner{min-height: 240px;}
+      .inner{min-height: 260px;}
     }
   </style>
 </head>
@@ -136,12 +130,12 @@
     <header class="top">
       <div>
         <h1 class="title">Projects (Flashcards)</h1>
-        <p class="sub">Click a card’s “Flip” button to view details. (Bookmarkable with #id)</p>
+        <p class="sub">Each card flips independently. Click <b>Flip</b> to view full details.</p>
       </div>
       <div class="btns">
         <a class="btn" href="index.html">← Back</a>
         <a class="btn" href="mailto:muntherhani@gmail.com">Email</a>
-        <!-- Replace with your real LinkedIn URL -->
+        <!-- ضع رابط لينكدإن الحقيقي -->
         <a class="btn" href="#" target="_blank" rel="noreferrer">LinkedIn</a>
       </div>
     </header>
@@ -152,29 +146,24 @@
       <section id="metrohealth" class="card flash">
         <div class="inner">
           <div class="face front">
-            <div class="kicker">
-              <span class="pill">Networking • LAN</span>
-              <span class="pill">VLANs • DHCP</span>
-            </div>
+            <div class="kicker"><span class="pill">Networking • LAN</span><span class="pill">VLANs • DHCP</span></div>
             <h3>Secure and Scalable LAN Design — MetroHealth Hospital</h3>
-            <p>Designed a secure LAN architecture with VLAN segmentation, DHCP services, and Layer 3 inter-VLAN routing.</p>
+            <p><b>Overview:</b> Designed a secure LAN with VLAN segmentation, DHCP, and inter-VLAN routing.</p>
             <div class="actions">
-              <a class="small" href="#metrohealth">Flip</a>
-              <a class="small" href="index.html#projects" onclick="return true;">Home</a>
+              <button class="small" type="button" data-flip>Flip</button>
             </div>
-            <div class="note">Tip: to flip back, click another card then return.</div>
+            <div class="hint">Shows full security controls & tools on the back.</div>
           </div>
+
           <div class="face back">
-            <div class="kicker">
-              <span class="pill">Security</span>
-              <span class="pill">Tools</span>
-            </div>
+            <div class="kicker"><span class="pill">Full Details</span><span class="pill">Tools</span></div>
             <ul>
-              <li><b>Security:</b> mitigated VLAN hopping, DHCP spoofing, ARP poisoning; documented redundancy/HA.</li>
-              <li><b>Tools:</b> Cisco Packet Tracer, VLANs, DHCP, Routing, Network Security.</li>
+              <li><b>Overview:</b> Secure LAN architecture with VLAN segmentation, DHCP services, and Layer 3 routing.</li>
+              <li><b>Security:</b> Mitigated VLAN hopping, DHCP spoofing, ARP poisoning; documented redundancy & HA.</li>
+              <li><b>Tools/Tech:</b> Cisco Packet Tracer, VLANs, DHCP, Routing, Network Security.</li>
             </ul>
             <div class="actions">
-              <a class="small" href="#emerald-retail">Flip back</a>
+              <button class="small" type="button" data-flip>Flip back</button>
             </div>
           </div>
         </div>
@@ -184,22 +173,19 @@
       <section id="emerald-retail" class="card flash">
         <div class="inner">
           <div class="face front">
-            <div class="kicker">
-              <span class="pill">Routing</span>
-              <span class="pill">IPv4/IPv6</span>
-            </div>
+            <div class="kicker"><span class="pill">Routing</span><span class="pill">IPv4/IPv6</span></div>
             <h3>Emerald Retail Networking Project</h3>
-            <p>Designed HQ and branch networks with VLANs, DHCP, and static routing across multiple segments.</p>
-            <div class="actions">
-              <a class="small" href="#emerald-retail">Flip</a>
-            </div>
+            <p><b>Overview:</b> HQ + branches with VLANs, DHCP, and static routing across segments.</p>
+            <div class="actions"><button class="small" type="button" data-flip>Flip</button></div>
+            <div class="hint">Back shows wireless + Layer 2 protections.</div>
           </div>
           <div class="face back">
             <ul>
-              <li><b>Security:</b> WPA3 wireless, MAC filtering, Layer 2 protections, SSH admin access.</li>
-              <li><b>Tools:</b> Cisco Packet Tracer, IPv4/IPv6, Wireless Security.</li>
+              <li><b>Overview:</b> Designed HQ/branches with VLANs, DHCP, static routing, and multi-subnet connectivity.</li>
+              <li><b>Security:</b> WPA3, MAC filtering, Layer 2 protections, SSH admin access.</li>
+              <li><b>Tools/Tech:</b> Cisco Packet Tracer, IPv4/IPv6, Wireless Security.</li>
             </ul>
-            <div class="actions"><a class="small" href="#linux-automation">Flip back</a></div>
+            <div class="actions"><button class="small" type="button" data-flip>Flip back</button></div>
           </div>
         </div>
       </section>
@@ -208,20 +194,18 @@
       <section id="linux-automation" class="card flash">
         <div class="inner">
           <div class="face front">
-            <div class="kicker">
-              <span class="pill">Linux</span>
-              <span class="pill">Bash</span>
-            </div>
+            <div class="kicker"><span class="pill">Linux</span><span class="pill">Bash</span></div>
             <h3>Linux Security & Automation Project</h3>
-            <p>Hardened Linux systems through secure user/group management and permission enforcement.</p>
-            <div class="actions"><a class="small" href="#linux-automation">Flip</a></div>
+            <p><b>Overview:</b> Hardened Linux systems via user/group controls and permissions.</p>
+            <div class="actions"><button class="small" type="button" data-flip>Flip</button></div>
           </div>
           <div class="face back">
             <ul>
-              <li><b>Automation:</b> firewall rules, automated updates, log monitoring using Bash scripts.</li>
-              <li><b>Tools:</b> Linux, Bash, iptables/ufw.</li>
+              <li><b>Overview:</b> Hardened Linux systems through secure user/group management and permission enforcement.</li>
+              <li><b>Automation:</b> Firewall rules, automated updates, log monitoring using Bash scripts.</li>
+              <li><b>Tools/Tech:</b> Linux, Bash, iptables/ufw.</li>
             </ul>
-            <div class="actions"><a class="small" href="#hardening-performance">Flip back</a></div>
+            <div class="actions"><button class="small" type="button" data-flip>Flip back</button></div>
           </div>
         </div>
       </section>
@@ -230,20 +214,18 @@
       <section id="hardening-performance" class="card flash">
         <div class="inner">
           <div class="face front">
-            <div class="kicker">
-              <span class="pill">Hardening</span>
-              <span class="pill">Performance</span>
-            </div>
+            <div class="kicker"><span class="pill">Hardening</span><span class="pill">Performance</span></div>
             <h3>System Hardening & Performance Optimization</h3>
-            <p>Optimized and secured a Linux-based system by reducing attack surface and tuning system services.</p>
-            <div class="actions"><a class="small" href="#hardening-performance">Flip</a></div>
+            <p><b>Overview:</b> Reduced attack surface and tuned services to improve security/performance.</p>
+            <div class="actions"><button class="small" type="button" data-flip>Flip</button></div>
           </div>
           <div class="face back">
             <ul>
-              <li><b>Security & Performance:</b> disabled unnecessary services, enforced least privilege, validated via metrics.</li>
-              <li><b>Tools:</b> Linux, Bash, systemctl, permissions management.</li>
+              <li><b>Overview:</b> Optimized and secured a Linux system by reducing attack surface and tuning services.</li>
+              <li><b>Security & Performance:</b> Disabled unnecessary services, enforced least privilege, validated via metrics.</li>
+              <li><b>Tools/Tech:</b> Linux, Bash, systemctl, permissions management.</li>
             </ul>
-            <div class="actions"><a class="small" href="#prom-graf-f2b">Flip back</a></div>
+            <div class="actions"><button class="small" type="button" data-flip>Flip back</button></div>
           </div>
         </div>
       </section>
@@ -252,20 +234,19 @@
       <section id="prom-graf-f2b" class="card flash">
         <div class="inner">
           <div class="face front">
-            <div class="kicker">
-              <span class="pill">Monitoring</span>
-              <span class="pill">Blue Team</span>
-            </div>
+            <div class="kicker"><span class="pill">Monitoring</span><span class="pill">Blue Team</span></div>
             <h3>Prometheus, Grafana & Fail2ban Security Monitoring</h3>
-            <p>Deployed Prometheus for metrics, built Grafana dashboards, and used Fail2ban to block brute-force attempts.</p>
-            <div class="actions"><a class="small" href="#prom-graf-f2b">Flip</a></div>
+            <p><b>Overview:</b> Metrics + dashboards + alerting, plus brute-force blocking in lab scenarios.</p>
+            <div class="actions"><button class="small" type="button" data-flip>Flip</button></div>
           </div>
           <div class="face back">
             <ul>
-              <li><b>Observability:</b> custom alert rules + real-time dashboards.</li>
-              <li><b>Tools:</b> Prometheus, Grafana, Fail2ban, Ubuntu.</li>
+              <li><b>Overview:</b> Deployed Prometheus metrics collection and custom alert rules.</li>
+              <li><b>Observability:</b> Built Grafana dashboards for real-time visibility.</li>
+              <li><b>Defense:</b> Fail2ban blocked brute-force attempts with simulated scenarios.</li>
+              <li><b>Tools/Tech:</b> Prometheus, Grafana, Fail2ban, Ubuntu.</li>
             </ul>
-            <div class="actions"><a class="small" href="#fake-malware">Flip back</a></div>
+            <div class="actions"><button class="small" type="button" data-flip>Flip back</button></div>
           </div>
         </div>
       </section>
@@ -274,20 +255,18 @@
       <section id="fake-malware" class="card flash">
         <div class="inner">
           <div class="face front">
-            <div class="kicker">
-              <span class="pill">Malware Concepts</span>
-              <span class="pill">Defensive</span>
-            </div>
+            <div class="kicker"><span class="pill">Malware Concepts</span><span class="pill">Defensive</span></div>
             <h3>Fake Malware & Evasion Techniques (Simulated)</h3>
-            <p>Developed and analyzed a simulated malware sample to study execution flow and evasion concepts.</p>
-            <div class="actions"><a class="small" href="#fake-malware">Flip</a></div>
+            <p><b>Overview:</b> Simulated sample to study execution flow and evasion concepts safely.</p>
+            <div class="actions"><button class="small" type="button" data-flip>Flip</button></div>
           </div>
           <div class="face back">
             <ul>
-              <li><b>Analysis:</b> behavioral patterns, sandbox awareness concepts, detection limitations (controlled env).</li>
-              <li><b>Skills:</b> Malware analysis concepts, defensive security awareness.</li>
+              <li><b>Overview:</b> Developed and analyzed a simulated malware sample (controlled environment).</li>
+              <li><b>Analysis:</b> Behavioral patterns, sandbox awareness concepts, detection limitations.</li>
+              <li><b>Skills:</b> Malware analysis concepts, behavioral analysis, defensive awareness.</li>
             </ul>
-            <div class="actions"><a class="small" href="#web-pentest">Flip back</a></div>
+            <div class="actions"><button class="small" type="button" data-flip>Flip back</button></div>
           </div>
         </div>
       </section>
@@ -296,20 +275,17 @@
       <section id="web-pentest" class="card flash">
         <div class="inner">
           <div class="face front">
-            <div class="kicker">
-              <span class="pill">Web Security</span>
-              <span class="pill">OWASP</span>
-            </div>
+            <div class="kicker"><span class="pill">Web Security</span><span class="pill">OWASP</span></div>
             <h3>Web Application Penetration Testing</h3>
-            <p>Conducted manual and automated testing on a vulnerable web application.</p>
-            <div class="actions"><a class="small" href="#web-pentest">Flip</a></div>
+            <p><b>Overview:</b> Manual + automated testing on a vulnerable web application.</p>
+            <div class="actions"><button class="small" type="button" data-flip>Flip</button></div>
           </div>
           <div class="face back">
             <ul>
               <li><b>Findings:</b> XSS, SQL injection, auth bypass, session management issues.</li>
-              <li><b>Tools:</b> OWASP ZAP, PHP, HTML/JavaScript, Browser DevTools.</li>
+              <li><b>Tools/Tech:</b> OWASP ZAP, PHP, HTML/JavaScript, Browser DevTools.</li>
             </ul>
-            <div class="actions"><a class="small" href="#crypto-benchmark">Flip back</a></div>
+            <div class="actions"><button class="small" type="button" data-flip>Flip back</button></div>
           </div>
         </div>
       </section>
@@ -318,20 +294,17 @@
       <section id="crypto-benchmark" class="card flash">
         <div class="inner">
           <div class="face front">
-            <div class="kicker">
-              <span class="pill">Crypto</span>
-              <span class="pill">Python</span>
-            </div>
+            <div class="kicker"><span class="pill">Crypto</span><span class="pill">Python</span></div>
             <h3>Cryptography Benchmarking</h3>
-            <p>Benchmarked cryptographic algorithms to evaluate performance and efficiency.</p>
-            <div class="actions"><a class="small" href="#crypto-benchmark">Flip</a></div>
+            <p><b>Overview:</b> Benchmarked crypto algorithms to compare efficiency and performance.</p>
+            <div class="actions"><button class="small" type="button" data-flip>Flip</button></div>
           </div>
           <div class="face back">
             <ul>
-              <li><b>Analysis:</b> compared symmetric, asymmetric, hashing under consistent conditions.</li>
-              <li><b>Tools:</b> Python, cryptography libraries, performance analysis.</li>
+              <li><b>Analysis:</b> Compared symmetric, asymmetric, and hashing algorithms under consistent tests.</li>
+              <li><b>Tools/Tech:</b> Python, cryptography libraries, performance analysis.</li>
             </ul>
-            <div class="actions"><a class="small" href="#ust-treasury">Flip back</a></div>
+            <div class="actions"><button class="small" type="button" data-flip>Flip back</button></div>
           </div>
         </div>
       </section>
@@ -340,19 +313,17 @@
       <section id="ust-treasury" class="card flash">
         <div class="inner">
           <div class="face front">
-            <div class="kicker">
-              <span class="pill">Case Study</span>
-              <span class="pill">Risk</span>
-            </div>
+            <div class="kicker"><span class="pill">Case Study</span><span class="pill">Risk</span></div>
             <h3>UST Treasury Cyber Breach — Janet Yellen (Case Study)</h3>
-            <p>Researched a major U.S. Treasury cybersecurity incident and identified stakeholders and systemic risk areas.</p>
-            <div class="actions"><a class="small" href="#ust-treasury">Flip</a></div>
+            <p><b>Focus:</b> Stakeholders + systemic risk areas + threat analysis.</p>
+            <div class="actions"><button class="small" type="button" data-flip>Flip</button></div>
           </div>
           <div class="face back">
             <ul>
+              <li><b>Focus:</b> Researched incident context and systemic risk exposure.</li>
               <li><b>Skills:</b> Threat analysis, cybercrime research, risk assessment.</li>
             </ul>
-            <div class="actions"><a class="small" href="#optum">Flip back</a></div>
+            <div class="actions"><button class="small" type="button" data-flip>Flip back</button></div>
           </div>
         </div>
       </section>
@@ -361,19 +332,17 @@
       <section id="optum" class="card flash">
         <div class="inner">
           <div class="face front">
-            <div class="kicker">
-              <span class="pill">Incident</span>
-              <span class="pill">Healthcare</span>
-            </div>
+            <div class="kicker"><span class="pill">Incident</span><span class="pill">Healthcare</span></div>
             <h3>Optum Cybersecurity Incident Project</h3>
-            <p>Investigated a healthcare breach: vulnerabilities, impact, and response strategies.</p>
-            <div class="actions"><a class="small" href="#optum">Flip</a></div>
+            <p><b>Focus:</b> Vulnerabilities, impact, and response strategies.</p>
+            <div class="actions"><button class="small" type="button" data-flip>Flip</button></div>
           </div>
           <div class="face back">
             <ul>
+              <li><b>Focus:</b> Healthcare sector breach analysis: vulnerabilities, impact, response strategies.</li>
               <li><b>Skills:</b> Incident analysis, impact assessment, security recommendations.</li>
             </ul>
-            <div class="actions"><a class="small" href="#grc">Flip back</a></div>
+            <div class="actions"><button class="small" type="button" data-flip>Flip back</button></div>
           </div>
         </div>
       </section>
@@ -382,20 +351,18 @@
       <section id="grc" class="card flash">
         <div class="inner">
           <div class="face front">
-            <div class="kicker">
-              <span class="pill">GRC</span>
-              <span class="pill">Compliance</span>
-            </div>
+            <div class="kicker"><span class="pill">GRC</span><span class="pill">Compliance</span></div>
             <h3>Compliance, Governance & Regulatory Analysis</h3>
-            <p>Analyzed compliance requirements and governance frameworks with policy alignment & accountability.</p>
-            <div class="actions"><a class="small" href="#grc">Flip</a></div>
+            <p><b>Overview:</b> Governance frameworks, risk management, and regulatory obligations.</p>
+            <div class="actions"><button class="small" type="button" data-flip>Flip</button></div>
           </div>
           <div class="face back">
             <ul>
-              <li><b>Focus:</b> risk management, regulatory obligations, stakeholder accountability.</li>
+              <li><b>Overview:</b> Analyzed cybersecurity compliance requirements and governance frameworks.</li>
+              <li><b>Focus:</b> policy alignment, regulatory obligations, stakeholder accountability.</li>
               <li><b>Skills:</b> GRC, compliance analysis, risk assessment.</li>
             </ul>
-            <div class="actions"><a class="small" href="#cpp">Flip back</a></div>
+            <div class="actions"><button class="small" type="button" data-flip>Flip back</button></div>
           </div>
         </div>
       </section>
@@ -404,17 +371,14 @@
       <section id="cpp" class="card flash">
         <div class="inner">
           <div class="face front">
-            <div class="kicker">
-              <span class="pill">Programming</span>
-              <span class="pill">C/C++</span>
-            </div>
+            <div class="kicker"><span class="pill">Programming</span><span class="pill">C/C++</span></div>
             <h3>C / C++ Programming Project</h3>
-            <p>Developed applications focusing on algorithms, memory handling, and efficient I/O operations.</p>
-            <div class="actions"><a class="small" href="#cpp">Flip</a></div>
+            <p><b>Overview:</b> Algorithms, memory handling, and efficient I/O applications.</p>
+            <div class="actions"><button class="small" type="button" data-flip>Flip</button></div>
           </div>
           <div class="face back">
             <ul><li><b>Tools:</b> C, C++, GCC, Linux.</li></ul>
-            <div class="actions"><a class="small" href="#fullstack">Flip back</a></div>
+            <div class="actions"><button class="small" type="button" data-flip>Flip back</button></div>
           </div>
         </div>
       </section>
@@ -423,17 +387,14 @@
       <section id="fullstack" class="card flash">
         <div class="inner">
           <div class="face front">
-            <div class="kicker">
-              <span class="pill">Full-Stack</span>
-              <span class="pill">Web</span>
-            </div>
+            <div class="kicker"><span class="pill">Full-Stack</span><span class="pill">Web</span></div>
             <h3>Dynamic Web Application Development</h3>
-            <p>Built a full-stack web application with authentication and database integration.</p>
-            <div class="actions"><a class="small" href="#fullstack">Flip</a></div>
+            <p><b>Overview:</b> Full-stack app with authentication and database integration.</p>
+            <div class="actions"><button class="small" type="button" data-flip>Flip</button></div>
           </div>
           <div class="face back">
-            <ul><li><b>Tools:</b> HTML, CSS, JavaScript, PHP, MySQL, Java.</li></ul>
-            <div class="actions"><a class="small" href="#assembly">Flip back</a></div>
+            <ul><li><b>Tools/Tech:</b> HTML, CSS, JavaScript, PHP, MySQL, Java.</li></ul>
+            <div class="actions"><button class="small" type="button" data-flip>Flip back</button></div>
           </div>
         </div>
       </section>
@@ -442,17 +403,14 @@
       <section id="assembly" class="card flash">
         <div class="inner">
           <div class="face front">
-            <div class="kicker">
-              <span class="pill">Assembly</span>
-              <span class="pill">Easy68K</span>
-            </div>
+            <div class="kicker"><span class="pill">Assembly</span><span class="pill">Easy68K</span></div>
             <h3>Assembly — Game of Tiny Thrones</h3>
-            <p>Created a text-based RPG with resource management and combat mechanics.</p>
-            <div class="actions"><a class="small" href="#assembly">Flip</a></div>
+            <p><b>Overview:</b> Text-based RPG with resource management and combat mechanics.</p>
+            <div class="actions"><button class="small" type="button" data-flip>Flip</button></div>
           </div>
           <div class="face back">
-            <ul><li><b>Tools:</b> Assembly (Easy68K).</li></ul>
-            <div class="actions"><a class="small" href="#ethics">Flip back</a></div>
+            <ul><li><b>Tools/Tech:</b> Assembly (Easy68K).</li></ul>
+            <div class="actions"><button class="small" type="button" data-flip>Flip back</button></div>
           </div>
         </div>
       </section>
@@ -461,26 +419,41 @@
       <section id="ethics" class="card flash">
         <div class="inner">
           <div class="face front">
-            <div class="kicker">
-              <span class="pill">Research</span>
-              <span class="pill">Ethics</span>
-            </div>
+            <div class="kicker"><span class="pill">Research</span><span class="pill">Ethics</span></div>
             <h3>Cybersecurity Ethics Research</h3>
-            <p>Explored privacy, surveillance, and digital rights challenges with balanced solutions.</p>
-            <div class="actions"><a class="small" href="#ethics">Flip</a></div>
+            <p><b>Focus:</b> Privacy, surveillance, digital rights, and balanced solutions.</p>
+            <div class="actions"><button class="small" type="button" data-flip>Flip</button></div>
           </div>
           <div class="face back">
             <ul><li><b>Skills:</b> Cybersecurity ethics, critical thinking, research.</li></ul>
-            <div class="actions"><a class="small" href="#metrohealth">Flip back</a></div>
+            <div class="actions"><button class="small" type="button" data-flip>Flip back</button></div>
           </div>
         </div>
       </section>
 
     </div>
-
-    <p class="note" style="margin-top:18px;color:rgba(231,238,252,.62);font-size:12.5px">
-      Want it smoother? I can add a “Flip” button JS toggle (no hash) + search filter by tags.
-    </p>
   </div>
+
+  <script>
+    // ✅ Flip ONLY the card you clicked
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-flip]');
+      if (!btn) return;
+
+      e.preventDefault();
+      e.stopPropagation();
+
+      const card = btn.closest('.flash');
+      if (!card) return;
+
+      card.classList.toggle('flipped');
+    });
+
+    // ✅ If URL has #id, just scroll to it (no auto flip)
+    if (location.hash) {
+      const el = document.querySelector(location.hash);
+      if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+  </script>
 </body>
 </html>
