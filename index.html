@@ -105,15 +105,12 @@ body::after{
     .brand p, .roleLine{margin:2px 0 0;font-size:13px;color:var(--muted);}
     .roleLine{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
     .rhLogo{
-      height:28px;width:auto;max-width:150px;display:block;flex:0 0 auto;
-      object-fit:contain;
-      background:#fff;
-      padding:4px 8px;
-      border-radius:8px;
+      height:22px;width:auto;display:block;flex:0 0 auto;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,.35));
     }
-    .rhLogo.lg{height:38px;max-width:210px;padding:6px 10px;}
-    .pill .rhLogo{height:18px;max-width:110px;padding:2px 6px;border-radius:6px;}
-    .item .rhLogo{height:24px;max-width:130px;padding:4px 7px;}
+    .rhLogo.lg{height:46px;}
+    .pill .rhLogo{height:16px;}
+    .ic .rhLogo{height:18px;filter:none;}
 
     .pillrow{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
     .pill{
@@ -423,7 +420,7 @@ body.scrolled .floating-logo{
 
           <h1>cy-mun.com</h1>
           <p class="roleLine">
-            <img class="rhLogo" src="assets/redhat-logo.png?v=3" alt="Red Hat">
+            <img class="rhLogo" src="assets/redhat-logo.png?v=4" alt="Red Hat">
             <span>Munther • Technical Support Engineer Intern, Red Hat</span>
           </p>
         </div>
@@ -431,8 +428,8 @@ body.scrolled .floating-logo{
 
       <div class="pillrow">
         <div class="pill">
-          <img class="rhLogo" src="assets/redhat-logo.png?v=3" alt="Red Hat">
-          Intern
+          <img class="rhLogo" src="assets/redhat-logo.png?v=4" alt="Red Hat">
+          Red Hat Intern
         </div>
         <div class="pill">Based in Ireland</div>
       </div>
@@ -493,7 +490,9 @@ body.scrolled .floating-logo{
 
         <ul class="list">
           <li class="item">
-            <img class="rhLogo" src="assets/redhat-logo.png?v=3" alt="Red Hat">
+            <div class="ic" aria-hidden="true">
+              <img class="rhLogo" src="assets/redhat-logo.png?v=4" alt="">
+            </div>
             <div>
               <h4>Technical Support Engineer Intern</h4>
               <p>Red Hat — OpenShift, containers, and Kubernetes.</p>
@@ -543,7 +542,7 @@ body.scrolled .floating-logo{
           <div class="workshopLogos">
             <img class="ibmLogo" src="assets/ibm-logo.png" alt="IBM">
             <span class="logoX" aria-hidden="true">×</span>
-            <img class="rhLogo lg" src="assets/redhat-logo.png?v=3" alt="Red Hat">
+            <img class="rhLogo lg" src="assets/redhat-logo.png?v=4" alt="Red Hat">
           </div>
           <div>
             <h2>IBM + Red Hat Workshop</h2>
