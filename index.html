@@ -335,6 +335,24 @@ body::after{
     .workshopBrand{display:flex;align-items:center;gap:14px;min-width:0;}
     .workshopBrand h2{margin:0 0 4px;text-transform:none;font-size:18px;letter-spacing:0;}
     .workshopBrand p{margin:0;color:var(--muted);font-size:13.5px;line-height:1.4;}
+    .workshopLogos{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex:0 0 auto;
+    }
+    .ibmLogo{
+      height:32px;
+      width:auto;
+      max-width:96px;
+      object-fit:contain;
+    }
+    .logoX{
+      color:rgba(231,238,252,.5);
+      font-size:18px;
+      font-weight:700;
+      line-height:1;
+    }
     .workshopDays{
       display:grid;
       grid-template-columns: repeat(3, minmax(0,1fr));
@@ -522,7 +540,11 @@ body.scrolled .floating-logo{
     <section id="workshop" class="card section workshopPod">
       <div class="workshopHead">
         <div class="workshopBrand">
-          <img class="rhLogo lg" src="assets/redhat-logo.png?v=3" alt="Red Hat">
+          <div class="workshopLogos">
+            <img class="ibmLogo" src="assets/ibm-logo.png" alt="IBM">
+            <span class="logoX" aria-hidden="true">×</span>
+            <img class="rhLogo lg" src="assets/redhat-logo.png?v=3" alt="Red Hat">
+          </div>
           <div>
             <h2>IBM + Red Hat Workshop</h2>
             <p>3-day Containers, Kubernetes, OpenShift &amp; OpenShift AI — follow-up project: Workshop Copilot.</p>
