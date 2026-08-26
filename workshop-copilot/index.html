@@ -29,6 +29,8 @@
     .wrap { max-width: 880px; margin: 0 auto; padding: 28px 18px 60px; }
     a { color: inherit; }
     .nav { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
+    .titleRow { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .titleRow img { height: 42px; width: auto; }
     .btn {
       display: inline-flex; align-items: center;
       padding: 10px 12px; border-radius: 14px;
@@ -86,7 +88,10 @@
       <a class="btn" href="../projects.html">Projects</a>
     </div>
     <div class="eyebrow">IBM × Red Hat workshop follow-up • public demo</div>
-    <h1>OpenShift Workshop Copilot</h1>
+    <div class="titleRow">
+      <img src="../assets/redhat-logo.png" alt="Red Hat">
+      <h1>OpenShift Workshop Copilot</h1>
+    </div>
     <p class="lead">Ask about containers, Kubernetes, OpenShift, and OpenShift AI. Answers come from public workshop notes in this page — no API keys and no live cluster URLs. Type any question; the chips are only examples.</p>
     <form id="ask-form">
       <input id="question" type="text" placeholder="e.g. What is a Secret vs a ConfigMap?" autocomplete="off" />

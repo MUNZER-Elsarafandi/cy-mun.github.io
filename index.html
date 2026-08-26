@@ -99,7 +99,15 @@ body::after{
       background: rgba(255,255,255,.06);
     }
     .brand h1{font-size:15px;margin:0;letter-spacing:.5px;font-weight:700;text-transform:uppercase;opacity:.95;}
-    .brand p{margin:2px 0 0;font-size:13px;color:var(--muted);}
+    .brand p, .roleLine{margin:2px 0 0;font-size:13px;color:var(--muted);}
+    .roleLine{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+    .rhLogo{
+      height:22px;width:auto;display:block;flex:0 0 auto;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,.35));
+    }
+    .rhLogo.lg{height:46px;}
+    .pill .rhLogo{height:16px;}
+    .ic .rhLogo{height:18px;filter:none;}
 
     .pillrow{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
     .pill{
@@ -302,6 +310,40 @@ body::after{
     /* smooth scroll */
     html{scroll-behavior:smooth}
 
+    .workshopPod{
+      margin-top:18px;
+      padding:22px;
+      scroll-margin-top: 84px;
+      background:
+        linear-gradient(180deg, rgba(238,0,0,.12), rgba(255,255,255,.03) 42%);
+      border-color: rgba(238,0,0,.28);
+    }
+    .workshopHead{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+      margin-bottom:8px;
+    }
+    .workshopBrand{display:flex;align-items:center;gap:14px;min-width:0;}
+    .workshopBrand h2{margin:0 0 4px;text-transform:none;font-size:18px;letter-spacing:0;}
+    .workshopBrand p{margin:0;color:var(--muted);font-size:13.5px;line-height:1.4;}
+    .workshopDays{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap:12px;
+      margin-top:14px;
+    }
+    .workshopDay{
+      padding:12px;
+      border-radius:14px;
+      border:1px solid rgba(231,238,252,.10);
+      background: rgba(255,255,255,.03);
+    }
+    .workshopDay h3{margin:0 0 6px;font-size:13.2px;}
+    .workshopDay p{margin:0;color:var(--muted);font-size:12.75px;line-height:1.4;}
+
     @media (max-width: 900px){
       .hero{grid-template-columns:1fr}
       .grid{grid-template-columns:1fr}
@@ -309,6 +351,7 @@ body::after{
       .projWrap{max-height: 420px;}
       .skillsGrid{grid-template-columns:1fr}
       .certGrid{grid-template-columns:1fr}
+      .workshopDays{grid-template-columns:1fr}
     }
     /* Floating center logo */
 .floating-logo{
@@ -355,12 +398,18 @@ body.scrolled .floating-logo{
   <div>
 
           <h1>cy-mun.com</h1>
-          <p>Munther • Technical Support Engineer Intern, Red Hat</p>
+          <p class="roleLine">
+            <img class="rhLogo" src="assets/redhat-logo.png" alt="Red Hat">
+            <span>Munther • Technical Support Engineer Intern, Red Hat</span>
+          </p>
         </div>
       </div>
 
       <div class="pillrow">
-        <div class="pill"><span class="dot"></span>Red Hat Intern</div>
+        <div class="pill">
+          <img class="rhLogo" src="assets/redhat-logo.png" alt="">
+          Red Hat Intern
+        </div>
         <div class="pill">Based in Ireland</div>
       </div>
     </header>
@@ -375,7 +424,15 @@ body.scrolled .floating-logo{
         </p>
 
         <div class="ctaRow">
-          <a class="btn primary" href="projects.html">
+          <a class="btn primary" href="workshop-copilot/index.html">
+            Workshop Copilot
+          </a>
+
+          <a class="btn" href="#workshop">
+            Workshop
+          </a>
+
+          <a class="btn" href="projects.html">
             Projects
           </a>
 
@@ -412,10 +469,12 @@ body.scrolled .floating-logo{
 
         <ul class="list">
           <li class="item">
-            <div class="ic" aria-hidden="true">🎩</div>
+            <div class="ic" aria-hidden="true">
+              <img class="rhLogo" src="assets/redhat-logo.png" alt="">
+            </div>
             <div>
-              <h4>Red Hat Internship</h4>
-              <p>Technical Support Engineer Intern — OpenShift, containers, and Kubernetes.</p>
+              <h4>Technical Support Engineer Intern</h4>
+              <p>Red Hat — OpenShift, containers, and Kubernetes.</p>
             </div>
           </li>
 
@@ -455,6 +514,56 @@ body.scrolled .floating-logo{
       </div>
     </section>
 
+    <!-- IBM + Red Hat workshop (standalone) -->
+    <section id="workshop" class="card section workshopPod">
+      <div class="workshopHead">
+        <div class="workshopBrand">
+          <img class="rhLogo lg" src="assets/redhat-logo.png" alt="Red Hat">
+          <div>
+            <h2>IBM + Red Hat Workshop</h2>
+            <p>3-day Containers, Kubernetes, OpenShift &amp; OpenShift AI — follow-up project: Workshop Copilot.</p>
+          </div>
+        </div>
+        <a class="btn primary" href="workshop-copilot/index.html">Open copilot →</a>
+      </div>
+
+      <p class="muted" style="margin:8px 0 0;line-height:1.55">
+        Hands-on labs covering how containers differ from VMs, Kubernetes objects, OpenShift (Routes, ImageStreams, Pipelines),
+        and OpenShift AI RAG with Jupyter. The copilot answers questions from those workshop notes in the browser.
+      </p>
+
+      <div class="workshopDays">
+        <div class="workshopDay">
+          <h3>Day 1 — Containers</h3>
+          <p>Dockerfiles, images, registries, Compose, and Kubernetes Pods, Deployments, Services, ConfigMaps, Secrets, and PVCs.</p>
+        </div>
+        <div class="workshopDay">
+          <h3>Day 2 — OpenShift</h3>
+          <p>oc CLI, console, Routes, ImageStreams, StatefulSets, HPA, and OpenShift Pipelines (Tekton).</p>
+        </div>
+        <div class="workshopDay">
+          <h3>Day 3 — OpenShift AI</h3>
+          <p>Jupyter workbenches, RAG, embeddings, LlamaStack, and grounding answers in your own documents.</p>
+        </div>
+      </div>
+
+      <div class="chips">
+        <span class="chip">Docker</span>
+        <span class="chip">Kubernetes</span>
+        <span class="chip">OpenShift</span>
+        <span class="chip">oc CLI</span>
+        <span class="chip">Tekton</span>
+        <span class="chip">RAG</span>
+        <span class="chip">Python / Jupyter</span>
+        <span class="chip">YAML</span>
+      </div>
+
+      <div class="ctaRow" style="margin-top:14px;">
+        <a class="btn primary" href="workshop-copilot/index.html">Direct link: Workshop Copilot</a>
+        <a class="btn" href="projects.html#openshift-copilot">Project flashcard</a>
+      </div>
+    </section>
+
     <!-- CV Snapshot -->
     <section class="card section" style="margin-top:18px;">
       <h2>CV Snapshot</h2>
@@ -482,6 +591,13 @@ body.scrolled .floating-logo{
           <div class="chips">
             <span class="chip">Networking (VLANs, Routing, DHCP)</span>
             <span class="chip">OpenShift • Kubernetes • Containers</span>
+            <span class="chip">Docker images &amp; Dockerfiles</span>
+            <span class="chip">Pods, Deployments, Services</span>
+            <span class="chip">Routes • ImageStreams</span>
+            <span class="chip">ConfigMaps • Secrets • PVCs</span>
+            <span class="chip">Horizontal Pod Autoscaler</span>
+            <span class="chip">OpenShift Pipelines (Tekton)</span>
+            <span class="chip">RAG / OpenShift AI</span>
             <span class="chip">IP Addressing • LAN/WAN</span>
             <span class="chip">Security Monitoring</span>
             <span class="chip">Incident Handling & Reporting</span>
@@ -504,6 +620,13 @@ body.scrolled .floating-logo{
             <span class="chip">Fail2ban</span>
             <span class="chip">Git/GitHub</span>
             <span class="chip">Red Hat OpenShift</span>
+            <span class="chip">OpenShift console</span>
+            <span class="chip">oc CLI</span>
+            <span class="chip">Docker</span>
+            <span class="chip">Quay</span>
+            <span class="chip">Jupyter</span>
+            <span class="chip">LlamaStack</span>
+            <span class="chip">Tekton</span>
             <span class="chip">Virtualization</span>
           </div>
         </div>
@@ -512,6 +635,8 @@ body.scrolled .floating-logo{
           <h3>Programming / Scripting</h3>
           <div class="chips">
             <span class="chip">Python</span>
+            <span class="chip">YAML</span>
+            <span class="chip">Dockerfile</span>
             <span class="chip">Bash / Shell</span>
             <span class="chip">PowerShell</span>
             <span class="chip">Java</span>
