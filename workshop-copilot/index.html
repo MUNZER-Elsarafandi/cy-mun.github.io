@@ -30,7 +30,11 @@
     a { color: inherit; }
     .nav { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
     .titleRow { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-    .titleRow img { height: 42px; width: auto; }
+    .titleRow img {
+      height: 32px; width: auto; max-width: 180px;
+      object-fit: contain; background: #fff;
+      padding: 5px 8px; border-radius: 8px;
+    }
     .btn {
       display: inline-flex; align-items: center;
       padding: 10px 12px; border-radius: 14px;
@@ -89,7 +93,7 @@
     </div>
     <div class="eyebrow">IBM × Red Hat workshop follow-up • public demo</div>
     <div class="titleRow">
-      <img src="../assets/redhat-logo.png" alt="Red Hat">
+      <img src="../assets/redhat-logo.png?v=3" alt="Red Hat">
       <h1>OpenShift Workshop Copilot</h1>
     </div>
     <p class="lead">Ask about containers, Kubernetes, OpenShift, and OpenShift AI. Answers come from public workshop notes in this page — no API keys and no live cluster URLs. Type any question; the chips are only examples.</p>
