@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>OpenShift Workshop Copilot | cy-mun.com</title>
+  <meta name="description" content="Public demo of a RAG copilot over IBM + Red Hat OpenShift workshop notes. Runs entirely in the browser — no API keys, no cluster URLs." />
+  <style>
+    :root {
+      --bg: #0b1220;
+      --panel: rgba(255,255,255,.06);
+      --ink: #e7eefc;
+      --muted: rgba(231,238,252,.72);
+      --line: rgba(231,238,252,.12);
+      --accent: #7c5cff;
+      --green: #22c55e;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--ink);
+      min-height: 100vh;
+      background:
+        radial-gradient(1200px 600px at 80% -10%, rgba(124,92,255,.30), transparent 60%),
+        radial-gradient(900px 500px at 10% 10%, rgba(34,197,94,.16), transparent 55%),
+        var(--bg);
+    }
+    .wrap { max-width: 880px; margin: 0 auto; padding: 28px 18px 60px; }
+    a { color: inherit; }
+    .nav { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
+    .btn {
+      display: inline-flex; align-items: center;
+      padding: 10px 12px; border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      font-size: 13px; font-weight: 650; text-decoration: none;
+    }
+    .eyebrow { letter-spacing: .14em; text-transform: uppercase; font-size: 12px; color: var(--muted); }
+    h1 { margin: 8px 0 8px; font-size: clamp(26px, 4vw, 36px); }
+    .lead { color: var(--muted); line-height: 1.55; margin: 0 0 18px; }
+    form {
+      display: flex; gap: 8px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 10px;
+    }
+    input[type="text"] {
+      flex: 1; background: transparent; border: 0; color: var(--ink);
+      font-size: 16px; padding: 12px; outline: none;
+    }
+    button.ask {
+      background: linear-gradient(135deg, rgba(124,92,255,.7), rgba(124,92,255,.25));
+      color: white; border: 0; border-radius: 12px; padding: 12px 18px;
+      font-weight: 700; cursor: pointer;
+    }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 22px; }
+    .chips button {
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 8px 10px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .meta { color: var(--muted); font-size: 12px; margin: 0 0 8px; }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 18px;
+      white-space: pre-wrap;
+      line-height: 1.5;
+    }
+    .source { border-top: 1px solid var(--line); padding: 12px 0; }
+    .source:first-child { border-top: 0; }
+    .score { color: var(--accent); font-size: 12px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="nav">
+      <a class="btn" href="../index.html">← cy-mun.com</a>
+      <a class="btn" href="../projects.html">Projects</a>
+    </div>
+    <div class="eyebrow">IBM × Red Hat workshop follow-up • public demo</div>
+    <h1>OpenShift Workshop Copilot</h1>
+    <p class="lead">Ask about containers, Kubernetes, OpenShift, and OpenShift AI. Answers come from public workshop notes in this page — no API keys and no live cluster URLs. Type any question; the chips are only examples.</p>
+    <form id="ask-form">
+      <input id="question" type="text" placeholder="e.g. What is a Secret vs a ConfigMap?" autocomplete="off" />
+      <button class="ask" type="submit" id="ask-btn">Ask</button>
+    </form>
+    <p class="meta">Example questions</p>
+    <div class="chips">
+      <button type="button" data-q="What is the difference between a virtual machine and a container?">VMs vs containers</button>
+      <button type="button" data-q="How do I create an ImageStream and expose a Route?">ImageStreams</button>
+      <button type="button" data-q="What is the difference between a PVC and ephemeral storage?">PVC vs ephemeral</button>
+      <button type="button" data-q="What is a ConfigMap versus a Secret?">ConfigMap vs Secret</button>
+      <button type="button" data-q="How does the Horizontal Pod Autoscaler work?">HPA</button>
+      <button type="button" data-q="How do I enable Gen AI Studio in OpenShift AI?">Gen AI Studio</button>
+      <button type="button" data-q="How does RAG work?">How RAG works</button>
+    </div>
+    <p class="meta" id="meta"></p>
+    <div class="panel" id="answer">Ask a workshop question to get started.</div>
+    <p class="meta">Sources</p>
+    <div class="panel" id="sources">Citations will appear here.</div>
+  </div>
+  <script>
+    const NOTES = [
+      { source: "day-1.md", heading: "Virtualization vs containers", text: "A virtual machine includes a guest operating system. A container shares the host kernel and isolates a process with Linux namespaces and cgroups. Use VMs when you need a full OS or strong isolation. Use containers for fast, portable application packaging." },
+      { source: "day-1.md", heading: "Docker", text: "A Dockerfile describes image layers. Common instructions: FROM, COPY, RUN, USER, EXPOSE, CMD. Useful commands: docker build, docker run, docker logs, docker exec. Registries store images (Docker Hub, Quay, OpenShift internal registry). Docker Compose starts multiple containers from a docker-compose.yml." },
+      { source: "day-1.md", heading: "Kubernetes architecture", text: "Control plane: API server, etcd, scheduler, controllers. Worker nodes: kubelet, container runtime, kube-proxy. Core objects: Namespace, Pod, Deployment, ReplicaSet, Service, Job, CronJob, ConfigMap, Secret." },
+      { source: "day-1.md", heading: "Storage on Kubernetes", text: "A Volume is storage attached to a Pod. A PersistentVolume is cluster storage. A PersistentVolumeClaim (PVC) is a request for storage. A StorageClass describes how volumes are provisioned." },
+      { source: "day-2.md", heading: "OpenShift fundamentals", text: "OpenShift is enterprise Kubernetes with a developer console, Routes, ImageStreams, an integrated registry, Operators, and opinionated security (Pods usually cannot run as root). Use the web console and the oc CLI after oc login." },
+      { source: "day-2.md", heading: "ImageStreams and Routes", text: "An ImageStream tracks image tags in the OpenShift internal registry. Typical flow: build a container image, log in to the internal registry, create an ImageStream, push the image, deploy with oc new-app, then expose the app with an HTTPS Route so it is reachable outside the cluster." },
+      { source: "day-2.md", heading: "Deployments", text: "You can deploy the same app three ways: imperative CLI (oc create deployment / oc new-app), declarative YAML (oc apply -f), or the web console. Then expose it with a Route." },
+      { source: "day-2.md", heading: "ConfigMaps, Secrets, and StatefulSets", text: "Put database passwords in a Secret. Put non-sensitive settings in a ConfigMap. Inject them as environment variables. StatefulSets give stable pod names, ordered start, and a PVC per pod that survives deletion." },
+      { source: "day-2.md", heading: "PVC vs ephemeral storage", text: "Ephemeral storage dies with the Pod. A PersistentVolumeClaim keeps data after the Pod is deleted. Lab proof: write a file to /data, delete the Pod, confirm the file is still there on the replacement Pod." },
+      { source: "day-2.md", heading: "Horizontal Pod Autoscaler", text: "HPA scales replicas from CPU or memory metrics. Workshop pattern: deploy an app with CPU requests and limits, create an HPA targeting 50% CPU with min 2 and max 6 replicas, generate load, watch scale-out then scale-in after cooldown." },
+      { source: "day-2.md", heading: "OpenShift Pipelines", text: "OpenShift Pipelines is Tekton. Core objects: Task, Pipeline, PipelineRun. A git push can build, test, and deploy without leaving the cluster." },
+      { source: "day-3.md", heading: "OpenShift AI dashboard", text: "From the OpenShift console, open the application launcher and choose Red Hat OpenShift AI. Create a project (this also creates a namespace). Create a Jupyter workbench, wait until it is Ready, then open the notebook." },
+      { source: "day-3.md", heading: "Enable Gen AI Studio", text: "Some GenAI features may be behind developer flags. Open the OpenShift AI dashboard home, append ?devFeatureFlags to the dashboard URL, click overridden, enable aiAssetCustomEndpoints and genAiStudio, then confirm Gen AI Studio appears in the sidebar." },
+      { source: "day-3.md", heading: "MaaS and LlamaStack", text: "Model as a Service (MaaS) is a remote LLM endpoint (URL + API key). In Gen AI Studio you register an AI asset endpoint, then add it to a playground. Launching a playground starts a LlamaStack distribution that pairs your generative model with an embedding model for RAG. LlamaStack is reached inside the cluster as http://<service-name>.<namespace>:8321." },
+      { source: "day-3.md", heading: "How RAG works", text: "Retrieval-Augmented Generation: split documents into chunks, embed chunks, store vectors, retrieve similar chunks for a question, then send chunks plus the question to the LLM so the answer is grounded. Without RAG a model cannot know workshop-only facts; with RAG it cites the uploaded notes." }
+    ];
+
+    const STOP = new Set("a an the and or of to in on for with is are be as at by from that this it you your we our can will into how do not if then under use using used".split(" "));
+    const TOKEN = /[a-z0-9]+/g;
+
+    function tokenize(text) {
+      return (text.toLowerCase().match(TOKEN) || []).filter((t) => t.length > 1 && !STOP.has(t));
+    }
+
+    function vectorize(docs) {
+      const df = {};
+      const tfs = docs.map((doc) => {
+        const tf = {};
+        tokenize(doc.heading + " " + doc.text + " " + doc.source).forEach((t) => { tf[t] = (tf[t] || 0) + 1; });
+        Object.keys(tf).forEach((t) => { df[t] = (df[t] || 0) + 1; });
+        return tf;
+      });
+      const n = docs.length;
+      const idf = {};
+      Object.keys(df).forEach((t) => { idf[t] = Math.log((1 + n) / (1 + df[t])) + 1; });
+      const vectors = tfs.map((tf) => {
+        const raw = {};
+        let sum = 0;
+        Object.keys(tf).forEach((t) => {
+          const v = tf[t] * (idf[t] || 0);
+          raw[t] = v;
+          sum += v * v;
+        });
+        const norm = Math.sqrt(sum) || 1;
+        Object.keys(raw).forEach((t) => { raw[t] /= norm; });
+        return raw;
+      });
+      return { idf, vectors };
+    }
+
+    function dot(a, b) {
+      const [small, large] = Object.keys(a).length < Object.keys(b).length ? [a, b] : [b, a];
+      let s = 0;
+      Object.keys(small).forEach((t) => { if (large[t]) s += small[t] * large[t]; });
+      return s;
+    }
+
+    const model = vectorize(NOTES);
+
+    function search(question) {
+      const tf = {};
+      tokenize(question).forEach((t) => { tf[t] = (tf[t] || 0) + 1; });
+      const raw = {};
+      let sum = 0;
+      Object.keys(tf).forEach((t) => {
+        const v = tf[t] * (model.idf[t] || 0);
+        raw[t] = v;
+        sum += v * v;
+      });
+      const norm = Math.sqrt(sum) || 1;
+      Object.keys(raw).forEach((t) => { raw[t] /= norm; });
+      const qset = new Set(Object.keys(tf));
+      return NOTES.map((doc, i) => {
+        let score = dot(raw, model.vectors[i]);
+        tokenize(doc.heading).forEach((t) => { if (qset.has(t)) score += 0.12; });
+        tokenize(doc.source).forEach((t) => { if (qset.has(t)) score += 0.08; });
+        return { ...doc, score: Math.round(score * 10000) / 10000 };
+      }).filter((d) => d.score > 0).sort((a, b) => b.score - a.score).slice(0, 4);
+    }
+
+    const form = document.getElementById("ask-form");
+    const input = document.getElementById("question");
+    const answer = document.getElementById("answer");
+    const sources = document.getElementById("sources");
+    const meta = document.getElementById("meta");
+    const button = document.getElementById("ask-btn");
+
+    function ask(question) {
+      button.disabled = true;
+      meta.textContent = "Searching notes in your browser…";
+      const hits = search(question);
+      if (!hits.length) {
+        answer.textContent = "No matching workshop notes for that yet.";
+        sources.textContent = "No citations.";
+        meta.textContent = "No matching notes";
+        button.disabled = false;
+        return;
+      }
+      const best = hits[0];
+      answer.textContent = best.heading + "\n\n" + best.text + "\n\nSource: [" + best.source + "]";
+      meta.textContent = "From workshop notes (browser-only demo, no LLM)";
+      sources.innerHTML = hits.map((s) =>
+        '<div class="source"><strong>' + s.heading + '</strong> <span class="score">score ' + s.score + '</span><div>' + s.text.slice(0, 220) + '</div></div>'
+      ).join("");
+      button.disabled = false;
+    }
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const q = input.value.trim();
+      if (q) ask(q);
+    });
+    document.querySelectorAll(".chips button").forEach((chip) => {
+      chip.addEventListener("click", () => {
+        input.value = chip.dataset.q;
+        ask(chip.dataset.q);
+      });
+    });
+  </script>
+</body>
+</html>
