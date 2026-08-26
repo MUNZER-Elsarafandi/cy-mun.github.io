@@ -10,7 +10,8 @@
   <meta http-equiv="Pragma" content="no-cache" />
 
   <!-- Optional favicon (upload assets/favicon.png) -->
-  <link rel="icon" href="assets/favicon.png" type="image/png">
+  <link rel="icon" href="assets/favicon.png?v=2" type="image/png">
+  <link rel="apple-touch-icon" href="assets/logo.png">
 
   <style>
     :root{
@@ -88,10 +89,8 @@ body::after{
     .logoImg{
   width:48px;
   height:48px;
-  border-radius:14px;
-  border:1px solid rgba(231,238,252,.24);
-  background: rgba(255,255,255,.06);
-  box-shadow: 0 10px 26px rgba(0,0,0,.35);
+  border-radius:16px;
+  object-fit:contain;
 }
 
     .avatar{
@@ -381,12 +380,11 @@ body::after{
   left: 50%;
   transform: translateX(-50%);
   z-index: 999;
-  width: 44px;
-  height: 44px;
-  border-radius: 14px;
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(231,238,252,.18);
-  backdrop-filter: blur(12px);
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  background: transparent;
+  border: 0;
   display: grid;
   place-items: center;
   box-shadow: 0 12px 30px rgba(0,0,0,.35);
@@ -397,6 +395,7 @@ body::after{
   width: 48px;
   height: 48px;
   object-fit: contain;
+  border-radius: 16px;
 }
 
 /* scroll animation */
@@ -410,7 +409,7 @@ body.scrolled .floating-logo{
 <body>
   <!-- Floating Logo -->
 <div class="floating-logo">
-  <img class="logoImg" src="assets/logo.svg" alt="cy-mun logo" />
+  <img class="logoImg" src="assets/logo.svg?v=2" alt="cy-mun logo" />
 </div>
   <div class="wrap">
     <header class="top">
