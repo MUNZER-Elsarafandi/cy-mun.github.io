@@ -101,6 +101,12 @@ body::after{
       background: rgba(255,255,255,.06);
     }
     .brand h1{font-size:15px;margin:0;letter-spacing:.5px;font-weight:700;text-transform:uppercase;opacity:.95;}
+    .siteName{display:flex;align-items:center;gap:8px;}
+    .brandLogo{
+      width:28px;height:28px;border-radius:8px;
+      object-fit:contain;flex:0 0 auto;
+      box-shadow: 0 8px 18px rgba(0,0,0,.28);
+    }
     .brand p, .roleLine{margin:2px 0 0;font-size:13px;color:var(--muted);}
     .roleLine{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
     .rhLogo{
@@ -305,6 +311,7 @@ body::after{
       color: rgba(231,238,252,.62);
       font-size:12.5px;
       display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+      align-items:center;
     }
     footer a{color:rgba(231,238,252,.86);text-decoration:underline;text-underline-offset:2px}
     .footerRight{display:flex;gap:12px;flex-wrap:wrap;color:rgba(231,238,252,.62)}
@@ -416,8 +423,10 @@ body.scrolled .floating-logo{
      <div class="brand">
   <img class="avatar" src="assets/me.jpg" alt="Munther photo" />
   <div>
-
-          <h1>cy-mun.com</h1>
+          <div class="siteName">
+            <img class="brandLogo" src="assets/logo.png?v=5" alt="cy-mun">
+            <h1>cy-mun.com</h1>
+          </div>
           <p class="roleLine">
             <img class="rhLogo" src="assets/redhat-logo.png?v=4" alt="Red Hat">
             <span>Munther • Technical Support Engineer Intern, Red Hat</span>
@@ -968,11 +977,13 @@ body.scrolled .floating-logo{
 
     <!-- Footer -->
     <footer>
-      <div>
-        © <span id="y"></span>
-        <!-- Replace with your LinkedIn URL -->
-        <a href="#" target="https://www.linkedin.com/in/munther-elsarafandi/" rel="noreferrer">Munther</a>
-        • cy-mun.com
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+        <img src="assets/logo.png?v=5" alt="" width="22" height="22" style="border-radius:6px">
+        <span>
+          © <span id="y"></span>
+          <a href="https://www.linkedin.com/in/munther-elsarafandi/" target="_blank" rel="noreferrer">Munther</a>
+          • cy-mun.com
+        </span>
       </div>
 
       <div class="footerRight">

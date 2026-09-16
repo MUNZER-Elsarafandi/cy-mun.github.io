@@ -34,6 +34,8 @@
       display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
       margin-bottom:18px;
     }
+    .titleRow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+    .titleRow img.pageLogo{width:36px;height:36px;border-radius:10px;object-fit:contain;}
     .title{margin:0;font-size:clamp(22px,3.2vw,34px);letter-spacing:-.02em;}
     .sub{margin:6px 0 0;color:var(--muted);line-height:1.5}
     .btns{display:flex;gap:10px;flex-wrap:wrap}
@@ -125,9 +127,12 @@
 <body>
   <div class="wrap">
     <header class="top">
-      <div>
-        <h1 class="title">Projects (Flashcards)</h1>
-        <p class="sub">Click <b>Flip</b> to view details. Links from home will scroll to the selected card.</p>
+      <div class="titleRow">
+        <a href="/"><img class="pageLogo" src="assets/logo.png?v=5" alt="cy-mun"></a>
+        <div>
+          <h1 class="title">Projects (Flashcards)</h1>
+          <p class="sub">Click <b>Flip</b> to view details. Links from home will scroll to the selected card.</p>
+        </div>
       </div>
       <div class="btns">
         <a class="btn" href="/">← Back</a>
